@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Resume.DataLayer\Resume.DataLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\InterFace\" />
-  </ItemGroup>
-
 </Project>
