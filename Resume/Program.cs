@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 Log.Logger = new LoggerConfiguration()
    .MinimumLevel.Debug()
    .WriteTo.Console()
-   .WriteTo.File("data/log.txt", rollingInterval: RollingInterval.Day)
+   .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
    .CreateLogger();
 #endregion
 builder.Host.UseSerilog();
