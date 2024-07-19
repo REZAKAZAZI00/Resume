@@ -10,7 +10,10 @@
         }
         #endregion
 
+        #region User
 
+        public DbSet<User> Users { get; set; }
+        #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
