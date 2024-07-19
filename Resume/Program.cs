@@ -18,7 +18,7 @@ builder.Host.UseSerilog();
 
 #region DbContext
 var connectionString = builder.Configuration.GetConnectionString("ResumeConnection");
-builder.Services.AddDbContext<ResumeDbContext>(options=>options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ResumeDbContext>(options => options.UseSqlServer(connectionString));
 #endregion
 
 builder.Services.AddControllersWithViews();
@@ -35,6 +35,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
 
 app.MapControllerRoute(
     name: "default",
