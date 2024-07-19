@@ -1,7 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Resume.DataLayer.Context;
-using Serilog;
-
 var builder = WebApplication.CreateBuilder(args);
 #region Log
 Log.Logger = new LoggerConfiguration()
@@ -13,7 +9,7 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 // Add services to the container.
 #region IOC
-
+builder.Services.RegisterServices();
 #endregion
 
 #region DbContext
