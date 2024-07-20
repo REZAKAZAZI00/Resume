@@ -1,5 +1,4 @@
-﻿
-namespace Resume.Core.DTOs.User;
+﻿namespace Resume.Core.DTOs.User;
 public class CreateUserViewModel
 {
     [Display(Name = "نام")]
@@ -46,8 +45,3 @@ public class CreateUserViewModel
 
 }
 
-public enum CreateUserResult
-{
-    Success,
-    Error
-}
