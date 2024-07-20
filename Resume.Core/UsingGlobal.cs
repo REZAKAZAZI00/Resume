@@ -11,3 +11,6 @@ global using System.ComponentModel.DataAnnotations;
 global using Resume.Core.Services.InterFace;
 global using Microsoft.Extensions.Logging;
 global using Resume.Core.Security;
+global using Microsoft.EntityFrameworkCore;
+global using Resume.Core.Convertors;
+global using Resume.Core.DTOs.Common;
