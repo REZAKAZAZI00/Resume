@@ -1,6 +1,4 @@
-﻿using Resume.Core.DTOs.User;
-
-namespace Resume.Web.Areas.Admin.Controllers;
+﻿namespace Resume.Web.Areas.Admin.Controllers;
 [Area("Admin")]
 public class UserController : Controller
 {
@@ -12,16 +10,18 @@ public class UserController : Controller
 
     public UserController(IUserService userService)
     {
-         _userService = userService;
+        _userService = userService;
     }
     #endregion
 
 
     #region List
 
-    public async Task<IActionResult> List()
+    public async Task<IActionResult> List(FilterUserViewModel filter)
     {
-        return View();
+        var result=await _userService.FilterAysnc(filter);
+
+        return View(result);
     }
     #endregion
 
@@ -33,25 +33,37 @@ public class UserController : Controller
         return View();
     }
 
-    public async Task<IActionResult> Create(CreateUserViewModel model)
-    { 
-       var result=_userService.Create(model);
-      return View(result);
+    public async Task<ActionResult<OutPutModel<bool>>> Create(CreateUserViewModel model)
+    {
+        if (!ModelState.IsValid)
+             return View(model);
+
+        var result =await _userService.Create(model);
+
+ 
+        return View(result);
     }
     #endregion
 
     #region Update
 
-
+    [HttpGet]
     public async Task<IActionResult> Update(int id)
     {
+        var user = await _userService.GetUserForEditByIdAysnc(id);
+        if (user is null)
+            return NotFound();
+
         return View();
 
     }
-
+    [HttpPost]
     public async Task<IActionResult> Update(EditUserViewModel model)
     {
-
+        if (!ModelState.IsValid) 
+            return View(model);
+       
+        var result=await _userService.UpdateAsync(model);
         return View(model);
     }
     #endregion

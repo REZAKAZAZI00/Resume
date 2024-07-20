@@ -10,6 +10,9 @@ public static class DiContainer
         #region Services
 
         service.AddScoped<IUserService, UserService>();
+        service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        service.AddScoped<ITokenHelperService, TokenHelper>();
+
 
         #endregion
 

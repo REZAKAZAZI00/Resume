@@ -14,3 +14,10 @@ global using Resume.Core.Security;
 global using Microsoft.EntityFrameworkCore;
 global using Resume.Core.Convertors;
 global using Resume.Core.DTOs.Common;
+global using Resume.Core.DTOs.Account;
+global using System.Security.Claims;
+global using Microsoft.AspNetCore.Authentication;
+global using Microsoft.AspNetCore.Authentication.Cookies;
+global using Microsoft.AspNetCore.Http;
+
+

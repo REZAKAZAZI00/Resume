@@ -1,0 +1,113 @@
+﻿@model LoginViewModel
+
+@{
+    Layout = null;
+    var Message = TempData["Message"];
+    var StatusCode = TempData["StatusCode"];
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .login-container {
+            margin-top: 100px;
+        }
+
+        .card {
+            border-radius: 15px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 25px;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+            span{
+                color:red;
+            }
+    </style>
+</head>
+<body>
+    <div class="container login-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                @if (StatusCode is not null)
+                {
+                    if (StatusCode.Equals(200))
+                    {
+                        <div class="alert alert-success">
+                            <p class="help-block">ورود با موفقیت انجام شد</p>
+                        </div>
+                  
+                        <script>
+
+                            var delay = 3000;
+                            setTimeout(function () { window.location = "http://localhost:5028/"; }, delay);
+                        </script>
+                    }
+                    else if (StatusCode.Equals(404))
+                    {
+                        <div class="alert alert-warning">
+                            <p class="help-block">@Message</p>
+                        </div>
+
+                    }else if (StatusCode.Equals(500))
+                    {
+                        <div class="alert alert-danger">
+                            <p class="help-block">@Message</p>
+                        </div>
+                    }
+
+                }
+                <div class="card">
+                    <div class="card-header text-center">
+                        Login
+                    </div>
+                    <div class="card-body">
+                        <form method="post" asp-action="login">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" asp-for="Email" placeholder="Enter your email" >
+                                <span asp-validation-for="Email"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" asp-for="Password" placeholder="Enter your password" >
+                                <span asp-validation-for="Password"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

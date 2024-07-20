@@ -17,10 +17,3 @@ public class LoginViewModel
 
    
 }
-
-public enum LoginResult
-{
-    Success,
-    Error,
-    UserNotFound
-}

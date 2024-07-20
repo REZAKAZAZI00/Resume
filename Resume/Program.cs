@@ -12,11 +12,27 @@ builder.Host.UseSerilog();
 builder.Services.RegisterServices();
 #endregion
 
+
 #region DbContext
 var connectionString = builder.Configuration.GetConnectionString("ResumeConnection");
 builder.Services.AddDbContext<ResumeDbContext>(options => options.UseSqlServer(connectionString));
 #endregion
 
+#region Add Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme=CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme=CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme=CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignOutScheme=CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(options=>
+{
+    options.LoginPath = "/login";
+    options.LogoutPath = "/logout";
+    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+});
+
+#endregion
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -24,12 +40,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    
 }
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
