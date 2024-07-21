@@ -8,3 +8,4 @@ global using System.ComponentModel.DataAnnotations;
 global using Resume.DataLayer.Entities.Common;
 global using Resume.DataLayer.Entities.User;
 
+

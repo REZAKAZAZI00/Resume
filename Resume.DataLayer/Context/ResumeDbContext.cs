@@ -1,4 +1,6 @@
-﻿namespace Resume.DataLayer.Context
+﻿using Resume.DataLayer.Entities.ContactUs;
+
+namespace Resume.DataLayer.Context
 {
     public class ResumeDbContext : DbContext
     {
@@ -13,6 +15,11 @@
         #region User
 
         public DbSet<User> Users { get; set; }
+        #endregion
+
+        #region ContactUs
+
+        public DbSet<ContactUs> ContactUs { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,10 +39,11 @@
             });
             #endregion
 
+            #region User
             modelBuilder.Entity<User>()
-                .Property(x => x.Phone)
-                .IsRequired()
-                .HasMaxLength(15);
+               .Property(x => x.Phone)
+               .IsRequired()
+               .HasMaxLength(15);
 
             modelBuilder.Entity<User>()
                 .Property(u => u.Email)
@@ -59,6 +67,30 @@
               .Property(u => u.Password)
               .IsRequired()
               .HasMaxLength(150);
+            #endregion
+
+            #region ContactUs
+            modelBuilder.Entity<ContactUs>()
+             .Property(x => x.PhoneNumber)
+             .HasMaxLength(15);
+
+            modelBuilder.Entity<ContactUs>()
+             .Property(x => x.Email)
+             .HasMaxLength(200);
+
+            modelBuilder.Entity<ContactUs>()
+            .Property(x => x.FirstName)
+            .HasMaxLength(150);
+
+            modelBuilder.Entity<ContactUs>()
+             .Property(x => x.LastName)
+             .HasMaxLength(150);
+            modelBuilder.Entity<ContactUs>()
+            .Property(x => x.Title)
+            .IsRequired()
+            .HasMaxLength(300);
+
+            #endregion
 
         }
 
