@@ -10,7 +10,9 @@ namespace Resume.Controllers
         {
             _logger = logger;
         }
-
+        [HttpGet("")]
+        [HttpGet("/index")]
+        [HttpGet("/home/index")]
         public IActionResult Index()
         {
             return View();
