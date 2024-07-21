@@ -10,3 +10,5 @@ global using Microsoft.AspNetCore.Authentication;
 global using Resume.Core.DTOs.Account;
 global using Resume.Core.DTOs.Common;
 global using Microsoft.AspNetCore.Authentication.Cookies;
+global using Resume.Core.DTOs.ContactUs;
+

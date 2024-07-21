@@ -21,4 +21,5 @@ global using Microsoft.AspNetCore.Authentication.Cookies;
 global using Microsoft.AspNetCore.Http;
 global using System.Security.Principal;
 global using Resume.Core.Extensions;
+global using Resume.Core.DTOs.ContactUs;
 

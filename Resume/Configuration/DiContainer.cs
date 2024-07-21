@@ -1,7 +1,4 @@
-﻿
-
-namespace Resume.Web.Configuration;
-
+﻿namespace Resume.Web.Configuration;
 public static class DiContainer
 {
 
@@ -12,7 +9,7 @@ public static class DiContainer
         service.AddScoped<IUserService, UserService>();
         service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         service.AddScoped<ITokenHelperService, TokenHelper>();
-
+        service.AddScoped<IContactUsService, ContactUsService>();
 
         #endregion
 
