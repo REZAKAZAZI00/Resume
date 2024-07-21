@@ -16,7 +16,7 @@ public class UserController : Controller
 
 
     #region List
-
+    [HttpGet("/admin/users")]
     public async Task<IActionResult> List(FilterUserViewModel filter)
     {
         var result=await _userService.FilterAysnc(filter);

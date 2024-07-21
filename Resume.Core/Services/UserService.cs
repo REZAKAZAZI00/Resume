@@ -172,10 +172,10 @@ public class UserService : IUserService
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(filter.Email))
-                query = query.Where(u => u.Email == filter.Email);
+                query = query.Where(u => EF.Functions.Like(u.Email,$"%{filter.Email}%"));
 
             if (!string.IsNullOrEmpty(filter.Phone))
-                query = query.Where(u => u.Phone == filter.Phone);
+                query = query.Where(u => EF.Functions.Like(u.Phone,$"%{filter.Phone}%"));
 
             await filter.Paging(query
                 .Select(u => new UserDetailsViewModel
