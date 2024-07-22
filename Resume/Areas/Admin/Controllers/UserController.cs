@@ -19,7 +19,7 @@ public class UserController : Controller
     [HttpGet("/admin/users")]
     public async Task<IActionResult> List(FilterUserViewModel filter)
     {
-        var result=await _userService.FilterAysnc(filter);
+        var result=await _userService.FilterAsync(filter);
 
         return View(result);
     }
@@ -50,7 +50,7 @@ public class UserController : Controller
     [HttpGet]
     public async Task<IActionResult> Update(int id)
     {
-        var user = await _userService.GetUserForEditByIdAysnc(id);
+        var user = await _userService.GetUserForEditByIdAsync(id);
         if (user is null)
             return NotFound();
 

@@ -33,7 +33,7 @@ public class ContactUsController : SiteBaseController
         if (!ModelState.IsValid)
             return View(model);
 
-        var result = await _contactUsService.CreateAysnc(model);
+        var result = await _contactUsService.CreateAsync(model);
 
         ViewData[Data] = result;
         

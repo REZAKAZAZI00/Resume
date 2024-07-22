@@ -6,14 +6,14 @@ public interface IUserService
 
     Task<OutPutModel<bool>> UpdateAsync(EditUserViewModel model);
 
-    Task<EditUserViewModel> GetUserForEditByIdAysnc(int id);
+    Task<EditUserViewModel> GetUserForEditByIdAsync(int id);
 
-    Task<FilterUserViewModel> FilterAysnc(FilterUserViewModel filter);
+    Task<FilterUserViewModel> FilterAsync(FilterUserViewModel filter);
 
     Task<OutPutModel<bool>> LoginAsync(LoginViewModel model);
 
-    Task<bool> DuplicatedPhoneAysnc(int id, string phone);
-    Task<bool> DuplicatedEmailAysnc(int id, string email);
+    Task<bool> DuplicatedPhoneAsync(int id, string phone);
+    Task<bool> DuplicatedEmailAsync(int id, string email);
 
 
     Task<User> GetUserByEmailAsync(string email);

@@ -62,7 +62,7 @@ public class UserService : IUserService
 
     }
 
-    public async Task<EditUserViewModel> GetUserForEditByIdAysnc(int id)
+    public async Task<EditUserViewModel> GetUserForEditByIdAsync(int id)
     {
         try
         {
@@ -105,7 +105,7 @@ public class UserService : IUserService
                 };
 
             string email = FixedText.FexedEmail(model.Email);
-            if (await DuplicatedEmailAysnc(user.Id, email))
+            if (await DuplicatedEmailAsync(user.Id, email))
                 return new OutPutModel<bool>
                 {
                     Result = false,
@@ -113,7 +113,7 @@ public class UserService : IUserService
                     Message = "ایمیل تکراری است."
                 };
 
-            if (await DuplicatedPhoneAysnc(user.Id, model.Phone))
+            if (await DuplicatedPhoneAsync(user.Id, model.Phone))
                 return new OutPutModel<bool>
                 {
                     Result = false,
@@ -150,20 +150,20 @@ public class UserService : IUserService
             };
         }
     }
-    public async Task<bool> DuplicatedPhoneAysnc(int id, string phone)
+    public async Task<bool> DuplicatedPhoneAsync(int id, string phone)
     {
         return await _context.Users
             .AsNoTracking()
             .AnyAsync(u => u.Id != id && u.Phone == phone);
     }
-    public async Task<bool> DuplicatedEmailAysnc(int id, string email)
+    public async Task<bool> DuplicatedEmailAsync(int id, string email)
     {
         return await _context.Users
         .AsNoTracking()
            .AnyAsync(u => u.Id != id && u.Email == email);
     }
 
-    public async Task<FilterUserViewModel> FilterAysnc(FilterUserViewModel filter)
+    public async Task<FilterUserViewModel> FilterAsync(FilterUserViewModel filter)
     {
         try
         {

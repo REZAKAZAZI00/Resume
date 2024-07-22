@@ -22,4 +22,5 @@ global using Microsoft.AspNetCore.Http;
 global using System.Security.Principal;
 global using Resume.Core.Extensions;
 global using Resume.Core.DTOs.ContactUs;
+global using Resume.DataLayer.Entities.ContactUs;
 

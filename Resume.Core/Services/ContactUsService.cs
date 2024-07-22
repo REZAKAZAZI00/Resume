@@ -1,7 +1,4 @@
-﻿
-using Resume.DataLayer.Entities.ContactUs;
-
-namespace Resume.Core.Services;
+﻿namespace Resume.Core.Services;
 
 public class ContactUsService : IContactUsService
 {
@@ -19,10 +16,11 @@ public class ContactUsService : IContactUsService
         _logger = logger;
     }
 
+  
     #endregion
 
 
-    public async Task<OutPutModel<bool>> CreateAysnc(CreateContactUsViewModel model)
+    public async Task<OutPutModel<bool>> CreateAsync(CreateContactUsViewModel model)
     {
         try
         {
@@ -38,7 +36,7 @@ public class ContactUsService : IContactUsService
                 Title = model.Title
             };
             _context.ContactUs.Add(newContactUs);
-            await _context.SaveChangesAsync();
+            await SaveAsync();
 
             return new OutPutModel<bool>
             {
@@ -60,7 +58,7 @@ public class ContactUsService : IContactUsService
         }
     }
 
-    public async Task<OutPutModel<FilterContactUsViewModel>> FilterAysnc(FilterContactUsViewModel model)
+    public async Task<OutPutModel<FilterContactUsViewModel>> FilterAsync(FilterContactUsViewModel model)
     {
         try
         {
@@ -70,7 +68,7 @@ public class ContactUsService : IContactUsService
 
             string email = $"%{model.Email}%";
             if (!string.IsNullOrEmpty(model.Email))
-                query = query.Where(c => EF.Functions.Like( c.Email,email));
+                query = query.Where(c => EF.Functions.Like(c.Email, email));
 
             string phoneNumber = $"%{model.Phone}%";
             if (!string.IsNullOrEmpty(model.Phone))
@@ -79,15 +77,15 @@ public class ContactUsService : IContactUsService
 
             string firstName = $"%{model.FirstName}%";
             if (!string.IsNullOrEmpty(model.FirstName))
-                query = query.Where(c => EF.Functions.Like(c.FirstName,firstName));
+                query = query.Where(c => EF.Functions.Like(c.FirstName, firstName));
 
             string lastName = $"%{model.LastName}%";
             if (!string.IsNullOrEmpty(model.LastName))
                 query = query.Where(c => EF.Functions.Like(c.LastName, lastName));
 
-            string title=$"%{model.Title}%";
+            string title = $"%{model.Title}%";
             if (!string.IsNullOrEmpty(model.Title))
-                query = query.Where(c => EF.Functions.Like(c.Title,title));
+                query = query.Where(c => EF.Functions.Like(c.Title, title));
 
             switch (model.AnswerStatus)
             {
@@ -99,7 +97,7 @@ public class ContactUsService : IContactUsService
                 case FilterContactUsAnswerStatus.NotAnswered:
                     query = query.Where(c => c.Answer == null);
                     break;
-                
+
             }
             await model.Paging(query
                 .Select(c => new ContactUsDetailsViewModel
@@ -113,6 +111,7 @@ public class ContactUsService : IContactUsService
                     LastName = c.LastName,
                     Email = c.Email,
                     Id = c.Id,
+                    CreateDate = c.CreateDate,
                 }));
 
             return new OutPutModel<FilterContactUsViewModel>
@@ -135,5 +134,93 @@ public class ContactUsService : IContactUsService
         }
     }
 
+    public async Task<OutPutModel<ContactUsDetailsViewModel>> GetByIdAsync(int id)
+    {
+        try
+        {
+            var contactUs = await _context.ContactUs
+                .Where(c => c.Id == id)
+                .Select(c => new ContactUsDetailsViewModel()
+                {
+                    Id = c.Id,
+                    Answer = c.Answer,
+                    Description = c.Description,
+                    Title = c.Title,
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Email = c.Email,
+                    PhoneNumber = c.PhoneNumber,
+                    CreateDate = c.CreateDate
+                })
+                .SingleOrDefaultAsync();
+            if (contactUs is null)
+                return new OutPutModel<ContactUsDetailsViewModel>
+                {
+                    Result = null,
+                    StatusCode = 404,
+                    Message = "با ایدی وارد شد چیزی پیدا نشد"
+                };
+
+            return new OutPutModel<ContactUsDetailsViewModel>
+            {
+                StatusCode = 200,
+                Message = "",
+                Result = contactUs
+            };
+        }
+        catch (Exception ex)
+        {
+
+            return new OutPutModel<ContactUsDetailsViewModel>
+            {
+                StatusCode = 500,
+                Result = null,
+                Message = "خطای غیرمنتظره ای رخ داد مجدد تلاش کنید",
+
+            };
+        }
+    }
+
+    public async Task SaveAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
+
+
+    public async Task<OutPutModel<bool>> AnswerAsync(ContactUsDetailsViewModel model)
+    {
+        try
+        {
+           var contactUs=await _context.ContactUs.FindAsync(model.Id);
+
+            if (contactUs is null)
+                return new OutPutModel<bool>
+                {
+                    Result = false,
+                    StatusCode=404,
+                    Message=""
+                };
+
+            contactUs.Answer=model.Answer;
+            _context.ContactUs.Update(contactUs);
+            await SaveAsync();
+            return new OutPutModel<bool>
+            {
+                Result = true,
+                StatusCode = 200,
+                Message = ""
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return new OutPutModel<bool>
+            {
+                 StatusCode=500,
+                 Result=false,
+                 Message=""
+            };
+        }
+    }
 
 }
