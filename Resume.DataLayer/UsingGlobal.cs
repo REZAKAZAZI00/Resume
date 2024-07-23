@@ -7,5 +7,8 @@ global using Microsoft.EntityFrameworkCore;
 global using System.ComponentModel.DataAnnotations;
 global using Resume.DataLayer.Entities.Common;
 global using Resume.DataLayer.Entities.User;
+global using Resume.DataLayer.Entities.AboutMe;
+global using Resume.DataLayer.Entities.ContactUs;
+global using Resume.DataLayer.Entities.Skills;
 
 

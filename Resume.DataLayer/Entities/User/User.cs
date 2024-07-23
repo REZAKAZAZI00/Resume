@@ -1,6 +1,4 @@
-﻿
-namespace Resume.DataLayer.Entities.User;
-
+﻿namespace Resume.DataLayer.Entities.User;
 public class User : BaseEntity<int>
 {
     #region Properties
@@ -18,5 +16,12 @@ public class User : BaseEntity<int>
 
     #endregion
 
+    #region Relations
+    public virtual AboutMe.AboutMe? AboutMe { get; set; }
 
+    public virtual  List<Skills.Skills>? Skills { get; set; }
+
+    public virtual List<Education.Education>? Educations { get; set; }
+
+    #endregion
 }
