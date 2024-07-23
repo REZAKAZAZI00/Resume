@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Resume.DataLayer.Context;
 
@@ -11,9 +12,11 @@ using Resume.DataLayer.Context;
 namespace Resume.DataLayer.Migrations
 {
     [DbContext(typeof(ResumeDbContext))]
-    partial class ResumeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240723132508_mig_skills")]
+    partial class mig_skills
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,14 +40,10 @@ namespace Resume.DataLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PictureName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -55,17 +54,6 @@ namespace Resume.DataLayer.Migrations
                         .IsUnique();
 
                     b.ToTable("AboutMe");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Bio = "my name is reza kazazi",
-                            CreateDate = new DateTime(2024, 7, 23, 22, 1, 52, 58, DateTimeKind.Local).AddTicks(7190),
-                            Location = "",
-                            PictureName = "",
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("Resume.DataLayer.Entities.ContactUs.ContactUs", b =>
@@ -114,51 +102,6 @@ namespace Resume.DataLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactUs");
-                });
-
-            modelBuilder.Entity("Resume.DataLayer.Entities.Education.Education", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Degree")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateOnly?>("EndDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("FieldOfStudy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InstitutionName")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<DateOnly>("StartDate")
-                        .HasColumnType("date");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Education");
                 });
 
             modelBuilder.Entity("Resume.DataLayer.Entities.Skills.Skills", b =>
@@ -242,8 +185,8 @@ namespace Resume.DataLayer.Migrations
                         new
                         {
                             Id = 1,
-                            BirthDate = new DateTime(2024, 7, 23, 22, 1, 52, 58, DateTimeKind.Local).AddTicks(7074),
-                            CreateDate = new DateTime(2024, 7, 23, 22, 1, 52, 58, DateTimeKind.Local).AddTicks(7090),
+                            BirthDate = new DateTime(2024, 7, 23, 16, 55, 7, 685, DateTimeKind.Local).AddTicks(8655),
+                            CreateDate = new DateTime(2024, 7, 23, 16, 55, 7, 685, DateTimeKind.Local).AddTicks(8668),
                             Email = "rezakazazy8@yahoo.com",
                             FirstName = "reza",
                             IaActive = true,
@@ -264,17 +207,6 @@ namespace Resume.DataLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Resume.DataLayer.Entities.Education.Education", b =>
-                {
-                    b.HasOne("Resume.DataLayer.Entities.User.User", "User")
-                        .WithMany("Educations")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Resume.DataLayer.Entities.Skills.Skills", b =>
                 {
                     b.HasOne("Resume.DataLayer.Entities.User.User", "User")
@@ -289,8 +221,6 @@ namespace Resume.DataLayer.Migrations
             modelBuilder.Entity("Resume.DataLayer.Entities.User.User", b =>
                 {
                     b.Navigation("AboutMe");
-
-                    b.Navigation("Educations");
 
                     b.Navigation("Skills");
                 });

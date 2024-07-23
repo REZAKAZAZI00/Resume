@@ -1,4 +1,6 @@
-﻿using Resume.DataLayer.Entities.ContactUs;
+﻿
+
+using Resume.DataLayer.Entities.Education;
 
 namespace Resume.DataLayer.Context
 {
@@ -21,6 +23,14 @@ namespace Resume.DataLayer.Context
 
         public DbSet<ContactUs> ContactUs { get; set; }
         #endregion
+
+        #region Skils
+        public DbSet<Skills> Skills { get; set; }
+        #endregion
+
+        #region AboutMe
+        public DbSet<AboutMe> AboutMe { get; set; }
+        #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Seed Data
@@ -37,6 +47,16 @@ namespace Resume.DataLayer.Context
                 LastName = "Kazazi",
                 Password = "5600715f42bf51c40dc330d750cd996f58fead4ddea56466ce7498d17801b3a5"
             });
+            modelBuilder.Entity<AboutMe>()
+                 .HasData(new AboutMe
+                 {
+                     CreateDate = DateTime.Now,
+                     Id = 1,
+                     UserId = 1,
+                     Location ="",
+                     PictureName ="",
+                     Bio="my name is reza kazazi"
+                 });
             #endregion
 
             #region User
@@ -92,6 +112,55 @@ namespace Resume.DataLayer.Context
 
             #endregion
 
+            #region AboutMe
+            modelBuilder.Entity<User>()
+            .HasOne(u => u.AboutMe)
+            .WithOne(a => a.User)
+            .HasForeignKey<AboutMe>(a => a.UserId);
+
+
+            modelBuilder.Entity<AboutMe>()
+                .Property(a => a.PictureName)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            modelBuilder.Entity<AboutMe>()
+                .Property(a => a.Location)
+                .IsRequired()
+                .HasMaxLength(30);
+
+            #endregion
+
+            #region Skills
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Skills)
+                .WithOne(s => s.User)
+                .HasForeignKey(s => s.UserId);
+            #endregion
+
+            #region Education
+            modelBuilder.Entity<User>()
+               .HasMany(u => u.Educations)
+               .WithOne(s => s.User)
+               .HasForeignKey(s => s.UserId);
+
+            modelBuilder.Entity<Education>()
+                .Property(e=> e.InstitutionName)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            modelBuilder.Entity<Education>()
+                .Property(e => e.Description)
+                .IsRequired()
+                .HasMaxLength(500);
+
+            modelBuilder.Entity<Education>()
+                .Property(e => e.Degree)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            #endregion
         }
 
     }
