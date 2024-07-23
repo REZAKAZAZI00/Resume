@@ -7,6 +7,7 @@ public interface IUserService
     Task<OutPutModel<bool>> UpdateAsync(EditUserViewModel model);
 
     Task<EditUserViewModel> GetUserForEditByIdAsync(int id);
+    Task<UserInfoViewModel> GetUserForShowAsync();
 
     Task<FilterUserViewModel> FilterAsync(FilterUserViewModel filter);
 

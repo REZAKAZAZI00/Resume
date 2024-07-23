@@ -253,5 +253,36 @@ public class UserService : IUserService
             .Where(u => u.Email == email)
             .SingleOrDefaultAsync();
     }
+
+    public async Task<UserInfoViewModel> GetUserForShowAsync()
+    {
+        try
+        {
+             var user=await _context.Users
+                .Include(a=> a.AboutMe)
+                .Select(u=> new UserInfoViewModel
+                {
+                     BirthDate = u.BirthDate,
+                     CreateDate = u.CreateDate,
+                     Email = u.Email,
+                     FirstName = u.FirstName,
+                     LastName = u.LastName,
+                     IaActive = u.IaActive,
+                     Phone = u.Phone,
+                     Id = u.Id,
+                     Bio=u.AboutMe.Bio,
+                     Location= u.AboutMe.Location,
+                     PictureName = u.AboutMe.PictureName,
+                }).SingleOrDefaultAsync();
+            return user;
+               
+                
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return null;
+        }
+    }
     #endregion
 }
