@@ -10,6 +10,9 @@ public static class DiContainer
         service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         service.AddScoped<ITokenHelperService, TokenHelper>();
         service.AddScoped<IContactUsService, ContactUsService>();
+        service.AddTransient<ISkillsService, SkillsService>();
+        service.AddScoped<IEducationService, EducationService>();
+
 
         #endregion
 
