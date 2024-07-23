@@ -1,20 +1,30 @@
-
+using Resume.Web.Controllers;
 
 namespace Resume.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : SiteBaseController
     {
-        private readonly ILogger<HomeController> _logger;
+        #region MyRegion
 
-        public HomeController(ILogger<HomeController> logger)
+        #endregion
+        private readonly IUserService _userService;
+        private readonly ISkillsService _skillsService;
+        #region Constructor
+        public HomeController(IUserService userService, ISkillsService skillsService)
         {
-            _logger = logger;
+            _userService = userService;
+            _skillsService = skillsService;
         }
+        #endregion
+
         [HttpGet("")]
         [HttpGet("/index")]
         [HttpGet("/home/index")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user= await _userService.GetUserForShowAsync();
+            ViewData[Data] = user;
+            ViewData["Skills"]=await _skillsService.GetSkillsInfoShowInHomeAsync();
             return View();
         }
 

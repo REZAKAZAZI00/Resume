@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Resume.DataLayer\Resume.DataLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Sender\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,8 @@
-﻿   <!--================Home Banner Area =================-->
+﻿@{
+    var userInfo = ViewData["Data"] as UserInfoViewModel;
+    var skills = ViewData["Skills"] as List<SkillsInfoViewModel>; 
+}   
+<!--================Home Banner Area =================-->
     <section class="home_banner_area">
         <div class="container box_1620">
             <div class="banner_inner d-flex align-items-center">
@@ -10,14 +14,14 @@
                         <div class="media-body">
                             <div class="personal_text">
                                 <h6>Hello Everybody, i am</h6>
-                                <h3>Donald McKinney</h3>
-                                <h4>Junior UI/UX Developer </h4>
-                                <p>You will begin to realise why this exercise is called the Dickens Pattern (with reference to the ghost showing Scrooge some different futures)</p>
+                                <h3>@userInfo.FirstName @userInfo.LastName</h3>
+                                <h4>Junior Backend Developer </h4>
+                                <p>@userInfo.Bio</p>
                                 <ul class="list basic_info">
-                                    <li><a href="#"><i class="lnr lnr-calendar-full"></i> 31st December, 1992</a></li>
-                                    <li><a href="#"><i class="lnr lnr-phone-handset"></i> 44 (012) 6954 783</a></li>
-                                    <li><a href="#"><i class="lnr lnr-envelope"></i> businessplan@donald</a></li>
-                                    <li><a href="#"><i class="lnr lnr-home"></i> Santa monica bullevard</a></li>
+                                    <li><a href="#"><i class="lnr lnr-calendar-full"></i> @userInfo.BirthDate</a></li>
+                                    <li><a href="#"><i class="lnr lnr-phone-handset"></i> @userInfo.Phone </a></li>
+                                    <li><a href="#"><i class="lnr lnr-envelope"></i> @userInfo.Email</a></li>
+                                    <li><a href="#"><i class="lnr lnr-home"></i>@userInfo.Location</a></li>
                                 </ul>
                                 <ul class="list personal_social">
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -68,46 +72,21 @@
             <div class="col-lg-6">
                 <div class="tools_expert">
                     <div class="skill_main">
-                        <div class="skill_item">
-                            <h4>After Effects <span class="counter">85</span>%</h4>
-                            <div class="progress_br">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                       
+                       @foreach (var skill in skills)
+                        {
+                            <div class="skill_item">
+                                <h4>@skill.SkillName <span class="counter">@skill.SkillLevel</span>%</h4>
+                                <div class="progress_br">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="@skill.SkillLevel" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="skill_item">
-                            <h4>Photoshop <span class="counter">90</span>%</h4>
-                            <div class="progress_br">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill_item">
-                            <h4>Illustrator <span class="counter">70</span>%</h4>
-                            <div class="progress_br">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill_item">
-                            <h4>Sublime <span class="counter">95</span>%</h4>
-                            <div class="progress_br">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill_item">
-                            <h4>Sketch <span class="counter">75</span>%</h4>
-                            <div class="progress_br">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
+                        }
+                        
+                       
+                       
                     </div>
                 </div>
             </div>
