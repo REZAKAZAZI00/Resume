@@ -1,7 +1,5 @@
 ﻿
 
-using Resume.DataLayer.Entities.Education;
-
 namespace Resume.DataLayer.Context
 {
     public class ResumeDbContext : DbContext
@@ -28,8 +26,17 @@ namespace Resume.DataLayer.Context
         public DbSet<Skills> Skills { get; set; }
         #endregion
 
+        #region Eductions
+
+        public DbSet<Education> Educations { get; set; }
+        #endregion
+
         #region AboutMe
         public DbSet<AboutMe> AboutMe { get; set; }
+        #endregion
+
+        #region WorkExperiences
+        public DbSet<WorkExperiences> WorkExperiences { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -53,10 +60,36 @@ namespace Resume.DataLayer.Context
                      CreateDate = DateTime.Now,
                      Id = 1,
                      UserId = 1,
-                     Location ="",
-                     PictureName ="",
-                     Bio="my name is reza kazazi"
+                     Location = "",
+                     PictureName = "",
+                     Bio = "my name is reza kazazi"
                  });
+            modelBuilder.Entity<Education>()
+                 .HasData(new Education
+                 {
+                     UserId = 1,
+                     Id = 1,
+                     InstitutionName="Jabarean ctiy",  
+                     CreateDate = DateTime.Now,
+                     StartDate = DateOnly.Parse("2020-09-01"),
+                     Degree = "Bachelor's",
+                     FieldOfStudy = "Computer Engineering",
+                     Description = "",
+                     EndDate = DateOnly.Parse("2024-07-01")
+                 });
+            modelBuilder.Entity<WorkExperiences>()
+                .HasData(new WorkExperiences
+                {
+                    CompanyName = "StartUp BlackVers",
+                    CreateDate = DateTime.Now,
+                    Id = 1,
+                    UserId = 1,
+                    StartDate=DateOnly.Parse("2023-02-01"),
+                    EndDate=DateOnly.Parse("2024-04-01"),
+                    JobTitle="Backend Devloper",
+                    Description="backend devloper asp.net core"
+                });
+
             #endregion
 
             #region User
@@ -146,7 +179,7 @@ namespace Resume.DataLayer.Context
                .HasForeignKey(s => s.UserId);
 
             modelBuilder.Entity<Education>()
-                .Property(e=> e.InstitutionName)
+                .Property(e => e.InstitutionName)
                 .IsRequired()
                 .HasMaxLength(150);
 
@@ -159,6 +192,33 @@ namespace Resume.DataLayer.Context
                 .Property(e => e.Degree)
                 .IsRequired()
                 .HasMaxLength(150);
+
+            #endregion
+
+            #region WorkExperiences
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.WorkExperiences)
+                .WithOne(s => s.User)
+                .HasForeignKey(s => s.UserId);
+
+            modelBuilder.Entity<WorkExperiences>()
+                .Property(e => e.StartDate)
+                .IsRequired();
+
+            modelBuilder.Entity<WorkExperiences>()
+                .Property(e => e.JobTitle)
+                .HasMaxLength(200)
+                .IsRequired();
+
+            modelBuilder.Entity<WorkExperiences>()
+                .Property(e => e.CompanyName)
+                .HasMaxLength(200)
+                .IsRequired();
+
+            modelBuilder.Entity<WorkExperiences>()
+                .Property(e => e.Description)
+                .HasMaxLength(500);
 
             #endregion
         }

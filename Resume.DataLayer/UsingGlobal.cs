@@ -10,5 +10,7 @@ global using Resume.DataLayer.Entities.User;
 global using Resume.DataLayer.Entities.AboutMe;
 global using Resume.DataLayer.Entities.ContactUs;
 global using Resume.DataLayer.Entities.Skills;
+global using Resume.DataLayer.Entities.Education;
+global using Resume.DataLayer.Entities.WorkExperiences;
 
 
