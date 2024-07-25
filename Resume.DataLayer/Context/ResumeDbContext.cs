@@ -1,5 +1,7 @@
 ﻿
 
+using Resume.DataLayer.Entities.Project;
+
 namespace Resume.DataLayer.Context
 {
     public class ResumeDbContext : DbContext
@@ -37,6 +39,12 @@ namespace Resume.DataLayer.Context
 
         #region WorkExperiences
         public DbSet<WorkExperiences> WorkExperiences { get; set; }
+        #endregion
+
+        #region Project
+
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Category> Categories  { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -219,6 +227,35 @@ namespace Resume.DataLayer.Context
             modelBuilder.Entity<WorkExperiences>()
                 .Property(e => e.Description)
                 .HasMaxLength(500);
+
+            #endregion
+
+
+            #region Project
+            modelBuilder.Entity<Project>()
+               .Property(c => c.Title)
+               .HasMaxLength(200)
+               .IsRequired();
+
+            modelBuilder.Entity<Project>()
+               .Property(c => c.PictureName)
+               .HasMaxLength(200)
+               .IsRequired();
+
+            modelBuilder.Entity<Project>()
+               .Property(c => c.Description)
+               .HasMaxLength(500)
+               .IsRequired();
+
+            #endregion
+
+            #region Category    
+
+
+            modelBuilder.Entity<Category>()
+                .Property(c=> c.Title)
+                .HasMaxLength(200)
+                .IsRequired();
 
             #endregion
         }
