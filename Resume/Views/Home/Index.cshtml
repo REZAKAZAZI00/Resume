@@ -1,6 +1,8 @@
 ﻿@{
     var userInfo = ViewData["Data"] as UserInfoViewModel;
-    var skills = ViewData["Skills"] as List<SkillsInfoViewModel>; 
+    var skills = ViewData["Skills"] as List<SkillsInfoViewModel>;
+    var educations = ViewData["Educations"] as List<EducationDetailViewModel>;
+    var workEx = ViewData["WorkEx"] as List<WorkExperiencesDetailViewModel>;
 }   
 <!--================Home Banner Area =================-->
     <section class="home_banner_area">
@@ -18,13 +20,13 @@
                                 <h4>Junior Backend Developer </h4>
                                 <p>@userInfo.Bio</p>
                                 <ul class="list basic_info">
-                                    <li><a href="#"><i class="lnr lnr-calendar-full"></i> @userInfo.BirthDate</a></li>
+                                    <li><a href="#"><i class="lnr lnr-calendar-full"></i> @userInfo.BirthDate.ToCustomString()</a></li>
                                     <li><a href="#"><i class="lnr lnr-phone-handset"></i> @userInfo.Phone </a></li>
                                     <li><a href="#"><i class="lnr lnr-envelope"></i> @userInfo.Email</a></li>
                                     <li><a href="#"><i class="lnr lnr-home"></i>@userInfo.Location</a></li>
                                 </ul>
                                 <ul class="list personal_social">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://github.com/REZAKAZAZI00"><i class="fa fa-github"></i></a></li>
                                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="https://www.linkedin.com/in/rezakazazi2002"><i class="fa fa-linkedin"></i></a></li>
                                 </ul>
@@ -109,82 +111,44 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <ul class="list">
-                        <li>
-                            <span></span>
-                            <div class="media">
-                                <div class="d-flex">
-                                    <p>March 2017 to present</p>
+                        @foreach (var item in workEx)
+                        {
+                            <li>
+                                <span></span>
+                                <div class="media">
+                                    <div class="d-flex">
+                                        <p>@item.StartDate.ToCustomString() to @(item.EndDate != null ? item.EndDate?.ToCustomString() : "present")</p>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>@item.JobTitle</h4>
+                                        <p>@item.CompanyName <br />@item.Description</p>
+                                    </div>
                                 </div>
-                                <div class="media-body">
-                                    <h4>Colorlib</h4>
-                                    <p>Senior Web Developer <br />Santa monica, Los angeles</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <span></span>
-                            <div class="media">
-                                <div class="d-flex">
-                                    <p>March 2017 to present</p>
-                                </div>
-                                <div class="media-body">
-                                    <h4>Colorlib</h4>
-                                    <p>Senior Web Developer <br />Santa monica, Los angeles</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <span></span>
-                            <div class="media">
-                                <div class="d-flex">
-                                    <p>March 2017 to present</p>
-                                </div>
-                                <div class="media-body">
-                                    <h4>Colorlib</h4>
-                                    <p>Senior Web Developer <br />Santa monica, Los angeles</p>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        } 
+                      
+                        
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <ul class="list">
-                        <li>
-                            <span></span>
-                            <div class="media">
-                                <div class="d-flex">
-                                    <p>March 2017 to present</p>
+                       @foreach (var education in educations)
+                        {
+                            <li>
+                                <span></span>
+                                <div class="media">
+                                    <div class="d-flex">
+                                        <p>@education.StartDate.ToCustomString() to @(education.EndDate != null ? education.EndDate.ToCustomString() : "present")</p>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>@education.InstitutionName</h4>
+                                        <p>@education.FieldOfStudy <br />@education.Degree</p>
+                                    </div>
                                 </div>
-                                <div class="media-body">
-                                    <h4>Colorlib</h4>
-                                    <p>Senior Web Developer <br />Santa monica, Los angeles</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <span></span>
-                            <div class="media">
-                                <div class="d-flex">
-                                    <p>March 2017 to present</p>
-                                </div>
-                                <div class="media-body">
-                                    <h4>Colorlib</h4>
-                                    <p>Senior Web Developer <br />Santa monica, Los angeles</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <span></span>
-                            <div class="media">
-                                <div class="d-flex">
-                                    <p>March 2017 to present</p>
-                                </div>
-                                <div class="media-body">
-                                    <h4>Colorlib</h4>
-                                    <p>Senior Web Developer <br />Santa monica, Los angeles</p>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        }
+                       
+                       
                     </ul>
                 </div>
             </div>

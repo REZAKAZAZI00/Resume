@@ -12,5 +12,8 @@ global using Resume.Core.DTOs.Common;
 global using Microsoft.AspNetCore.Authentication.Cookies;
 global using Resume.Core.DTOs.ContactUs;
 global using Resume.Core.DTOs.Skills;
-
+global using Resume.Core.Convertors;
+global using Resume.Core.DTOs.Education;
+global using Resume.Core.DTOs.WorkExperiences;
+global using System.Globalization;
 

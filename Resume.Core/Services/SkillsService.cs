@@ -24,6 +24,7 @@ public class SkillsService: ISkillsService
     public async Task<List<SkillsInfoViewModel>> GetSkillsInfoShowInHomeAsync()
     {
         var skills=await  _context.Skills
+            .AsNoTracking()
             .Select(s=> new SkillsInfoViewModel
             {
                  SkillLevel = s.SkillLevel,

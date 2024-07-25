@@ -24,4 +24,7 @@ global using Resume.Core.Extensions;
 global using Resume.Core.DTOs.ContactUs;
 global using Resume.DataLayer.Entities.ContactUs;
 global using Resume.Core.DTOs.Skills;
+global using Resume.Core.DTOs.Education;
+global using Resume.Core.DTOs.WorkExperiences;
+
 
