@@ -13,7 +13,9 @@ public static class DiContainer
         service.AddTransient<ISkillsService, SkillsService>();
         service.AddScoped<IEducationService, EducationService>();
         service.AddScoped<IWorkExperiencesService, WorkExperiencesService>();
-
+        service.AddScoped<ICategoryService,CategoryService>();
+        service.AddScoped<IProjectService,ProjectService>();
+        
 
         #endregion
 
