@@ -1,0 +1,21 @@
+﻿@model List<SkillsInfoViewModel>
+
+<div class="tools_expert">
+    <div class="skill_main">
+
+        @foreach (var skill in Model)
+        {
+            <div class="skill_item">
+                <h4>@skill.SkillName <span class="counter">@skill.SkillLevel</span>%</h4>
+                <div class="progress_br">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@skill.SkillLevel" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+    </div>
+</div>
