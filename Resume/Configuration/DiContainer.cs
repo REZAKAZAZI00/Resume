@@ -15,7 +15,7 @@ public static class DiContainer
         service.AddScoped<IWorkExperiencesService, WorkExperiencesService>();
         service.AddScoped<ICategoryService,CategoryService>();
         service.AddScoped<IProjectService,ProjectService>();
-        
+        service.AddScoped<IStatisticsService, StatisticsService>();
 
         #endregion
 
