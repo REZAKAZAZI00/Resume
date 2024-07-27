@@ -9,7 +9,7 @@ public class CreateProjectViewModel
 
     public string? Description { get; set; }
 
-    public string? PictureName { get; set; }
+    public IFormFile? Image { get; set; }
 
     public DateOnly StartDate { get; set; }
     public DateOnly EndDate { get; set; }

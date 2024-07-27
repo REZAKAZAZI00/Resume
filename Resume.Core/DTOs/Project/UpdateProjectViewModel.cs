@@ -13,6 +13,7 @@ public class UpdateProjectViewModel
 
     public string Description { get; set; }
 
+    public IFormFile Image { get; set; }
     public string PictureName { get; set; }
     [Required]
     public DateOnly StartDate { get; set; }
