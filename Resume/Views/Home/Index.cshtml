@@ -1,8 +1,6 @@
 ﻿@{
     var userInfo = ViewData["Data"] as UserInfoViewModel;
-    var skills = ViewData["Skills"] as List<SkillsInfoViewModel>;
-    var educations = ViewData["Educations"] as List<EducationDetailViewModel>;
-    var workEx = ViewData["WorkEx"] as List<WorkExperiencesDetailViewModel>;
+    
 }   
 <!--================Home Banner Area =================-->
     <section class="home_banner_area">
@@ -11,7 +9,7 @@
                 <div class="banner_content">
                     <div class="media">
                         <div class="d-flex">
-                            <img src="img/personal.jpg" alt="">
+                            <img src="img/UserProfile/reza12.jpg" width="500px" alt="">
                         </div>
                         <div class="media-body">
                             <div class="personal_text">
@@ -72,25 +70,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="tools_expert">
-                    <div class="skill_main">
-                       
-                       @foreach (var skill in skills)
-                        {
-                            <div class="skill_item">
-                                <h4>@skill.SkillName <span class="counter">@skill.SkillLevel</span>%</h4>
-                                <div class="progress_br">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="@skill.SkillLevel" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        
-                       
-                       
-                    </div>
-                </div>
+               @await Component.InvokeAsync("Skills")
             </div>
         </div>
     </div>
@@ -110,46 +90,11 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <ul class="list">
-                        @foreach (var item in workEx)
-                        {
-                            <li>
-                                <span></span>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <p>@item.StartDate.ToCustomString() to @(item.EndDate != null ? item.EndDate?.ToCustomString() : "present")</p>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>@item.JobTitle</h4>
-                                        <p>@item.CompanyName <br />@item.Description</p>
-                                    </div>
-                                </div>
-                            </li>
-                        } 
-                      
-                        
-                    </ul>
+                    @await Component.InvokeAsync("WorkExperiences")
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <ul class="list">
-                       @foreach (var education in educations)
-                        {
-                            <li>
-                                <span></span>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <p>@education.StartDate.ToCustomString() to @(education.EndDate != null ? education.EndDate.ToCustomString() : "present")</p>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>@education.InstitutionName</h4>
-                                        <p>@education.FieldOfStudy <br />@education.Degree</p>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                       
-                       
-                    </ul>
+                   
+                    @await Component.InvokeAsync("Education")
                 </div>
             </div>
         </div>
