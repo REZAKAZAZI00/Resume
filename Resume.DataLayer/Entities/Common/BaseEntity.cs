@@ -6,6 +6,6 @@ namespace Resume.DataLayer.Entities.Common
         [Key]
         public T Id { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }= DateTime.Now;
     }
 }

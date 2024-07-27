@@ -247,6 +247,10 @@ namespace Resume.DataLayer.Context
                .HasMaxLength(500)
                .IsRequired();
 
+            modelBuilder.Entity<Project>()
+                .Property(c => c.DeepLink)
+                .HasMaxLength(200);
+
             #endregion
 
             #region Category    

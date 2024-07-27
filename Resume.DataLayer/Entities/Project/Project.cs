@@ -19,6 +19,7 @@ public class Project:BaseEntity<int>
     public DateOnly StartDate { get; set; }
     public DateOnly EndDate { get; set; }
 
+    public  string? DeepLink { get; set; }
     public bool IsDelete { get; set; }
 
     #endregion
