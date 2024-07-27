@@ -1,0 +1,22 @@
+﻿@model List<WorkExperiencesDetailViewModel>
+@{
+}
+<ul class="list">
+    @foreach (var item in Model)
+    {
+        <li>
+            <span></span>
+            <div class="media">
+                <div class="d-flex">
+                    <p>@item.StartDate.ToCustomString() to @(item.EndDate != null ? item.EndDate?.ToCustomString() : "present")</p>
+                </div>
+                <div class="media-body">
+                    <h4>@item.JobTitle</h4>
+                    <p>@item.CompanyName <br />@item.Description</p>
+                </div>
+            </div>
+        </li>
+    }
+
+
+</ul>
