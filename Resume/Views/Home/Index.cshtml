@@ -1,41 +1,41 @@
 ﻿@{
     var userInfo = ViewData["Data"] as UserInfoViewModel;
-    
-}   
+
+}
 <!--================Home Banner Area =================-->
-    <section class="home_banner_area">
-        <div class="container box_1620">
-            <div class="banner_inner d-flex align-items-center">
-                <div class="banner_content">
-                    <div class="media">
-                        <div class="d-flex">
-                            <img src="img/UserProfile/reza12.jpg" width="500px" alt="">
-                        </div>
-                        <div class="media-body">
-                            <div class="personal_text">
-                                <h6>Hello Everybody, i am</h6>
-                                <h3>@userInfo.FirstName @userInfo.LastName</h3>
-                                <h4>Junior Backend Developer </h4>
-                                <p>@userInfo.Bio</p>
-                                <ul class="list basic_info">
-                                    <li><a href="#"><i class="lnr lnr-calendar-full"></i> @userInfo.BirthDate.ToCustomString()</a></li>
-                                    <li><a href="#"><i class="lnr lnr-phone-handset"></i> @userInfo.Phone </a></li>
-                                    <li><a href="#"><i class="lnr lnr-envelope"></i> @userInfo.Email</a></li>
-                                    <li><a href="#"><i class="lnr lnr-home"></i>@userInfo.Location</a></li>
-                                </ul>
-                                <ul class="list personal_social">
+<section class="home_banner_area">
+    <div class="container box_1620">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="banner_content">
+                <div class="media">
+                    <div class="d-flex">
+                        <img src="img/UserProfile/reza12.jpg" width="500px" alt="">
+                    </div>
+                    <div class="media-body">
+                        <div class="personal_text">
+                            <h6>Hello Everybody, i am</h6>
+                            <h3>@userInfo.FirstName @userInfo.LastName</h3>
+                            <h4> Backend Developer |.Net Developer </h4>
+                            <p>@userInfo.Bio</p>
+                            <ul class="list basic_info">
+                                <li><a href="#"><i class="lnr lnr-calendar-full"></i> @userInfo.BirthDate.ToCustomString()</a></li>
+                                <li><a href="#"><i class="lnr lnr-phone-handset"></i> @userInfo.Phone </a></li>
+                                <li><a href="#"><i class="lnr lnr-envelope"></i> @userInfo.Email</a></li>
+                                <li><a href="#"><i class="lnr lnr-home"></i>@userInfo.Location</a></li>
+                            </ul>
+                            <ul class="list personal_social">
                                 <li><a href="https://github.com/REZAKAZAZI00"><i class="fa fa-github"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="https://www.linkedin.com/in/rezakazazi2002"><i class="fa fa-linkedin"></i></a></li>
-                                </ul>
-                            </div>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!--================End Home Banner Area =================-->
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
 <!--================Welcome Area =================-->
 <section class="welcome_area p_120">
     <div class="container">
@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-               @await Component.InvokeAsync("Skills")
+                @await Component.InvokeAsync("Skills")
             </div>
         </div>
     </div>
@@ -93,7 +93,7 @@
                     @await Component.InvokeAsync("WorkExperiences")
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                   
+
                     @await Component.InvokeAsync("Education")
                 </div>
             </div>

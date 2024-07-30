@@ -1,9 +1,7 @@
 ﻿global using Resume.Core.DTOs.User;
-global using System;
-global using System.Collections.Generic;
-global using System.Linq;
+global using Resume.Core.Tools;
+global using System.Text.RegularExpressions;
 global using System.Text;
-global using System.Threading.Tasks;
 global using System.Security.Cryptography;
 global using Resume.DataLayer.Context;
 global using Resume.DataLayer.Entities.User;
@@ -14,6 +12,7 @@ global using Resume.Core.Security;
 global using Microsoft.EntityFrameworkCore;
 global using Resume.Core.Convertors;
 global using Resume.Core.DTOs.Common;
+global using Resume.Core.Generator;
 global using Resume.Core.DTOs.Account;
 global using System.Security.Claims;
 global using Microsoft.AspNetCore.Authentication;
@@ -26,5 +25,9 @@ global using Resume.DataLayer.Entities.ContactUs;
 global using Resume.Core.DTOs.Skills;
 global using Resume.Core.DTOs.Education;
 global using Resume.Core.DTOs.WorkExperiences;
+global using Resume.Core.DTOs.Category;
+global using Resume.DataLayer.Entities.Project;
+global using System.Web.Mvc;
+global using Resume.Core.DTOs.Project;
 
 
