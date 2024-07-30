@@ -1,8 +1,4 @@
-﻿
-
-using Resume.DataLayer.Entities.Project;
-
-namespace Resume.DataLayer.Context
+﻿namespace Resume.DataLayer.Context
 {
     public class ResumeDbContext : DbContext
     {
@@ -101,165 +97,48 @@ namespace Resume.DataLayer.Context
             #endregion
 
             #region User
-            modelBuilder.Entity<User>()
-               .Property(x => x.Phone)
-               .IsRequired()
-               .HasMaxLength(15);
 
-            modelBuilder.Entity<User>()
-                .Property(u => u.Email)
-                .IsRequired()
-                .HasMaxLength(250)
-                .IsUnicode();
-
-            modelBuilder.Entity<User>()
-              .Property(u => u.FirstName)
-              .IsRequired()
-              .HasMaxLength(150)
-              .IsUnicode();
-
-            modelBuilder.Entity<User>()
-              .Property(u => u.LastName)
-              .IsRequired()
-              .HasMaxLength(150)
-              .IsUnicode();
-
-            modelBuilder.Entity<User>()
-              .Property(u => u.Password)
-              .IsRequired()
-              .HasMaxLength(150);
+            modelBuilder.ApplyConfiguration(new FluentUserConfig());
             #endregion
 
             #region ContactUs
-            modelBuilder.Entity<ContactUs>()
-             .Property(x => x.PhoneNumber)
-             .HasMaxLength(15);
-
-            modelBuilder.Entity<ContactUs>()
-             .Property(x => x.Email)
-             .HasMaxLength(200);
-
-            modelBuilder.Entity<ContactUs>()
-            .Property(x => x.FirstName)
-            .HasMaxLength(150);
-
-            modelBuilder.Entity<ContactUs>()
-             .Property(x => x.LastName)
-             .HasMaxLength(150);
-            modelBuilder.Entity<ContactUs>()
-            .Property(x => x.Title)
-            .IsRequired()
-            .HasMaxLength(300);
-
+            modelBuilder.ApplyConfiguration(new FluentContactUsConfig());
             #endregion
 
+
             #region AboutMe
-            modelBuilder.Entity<User>()
-            .HasOne(u => u.AboutMe)
-            .WithOne(a => a.User)
-            .HasForeignKey<AboutMe>(a => a.UserId);
-
-
-            modelBuilder.Entity<AboutMe>()
-                .Property(a => a.PictureName)
-                .IsRequired()
-                .HasMaxLength(200);
-
-            modelBuilder.Entity<AboutMe>()
-                .Property(a => a.Location)
-                .IsRequired()
-                .HasMaxLength(30);
+           
+            modelBuilder.ApplyConfiguration(new FluentAboutMeConfig());
 
             #endregion
 
             #region Skills
 
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Skills)
-                .WithOne(s => s.User)
-                .HasForeignKey(s => s.UserId);
+            modelBuilder.ApplyConfiguration(new FluentSkillsConfig());
             #endregion
 
             #region Education
-            modelBuilder.Entity<User>()
-               .HasMany(u => u.Educations)
-               .WithOne(s => s.User)
-               .HasForeignKey(s => s.UserId);
-
-            modelBuilder.Entity<Education>()
-                .Property(e => e.InstitutionName)
-                .IsRequired()
-                .HasMaxLength(150);
-
-            modelBuilder.Entity<Education>()
-                .Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(500);
-
-            modelBuilder.Entity<Education>()
-                .Property(e => e.Degree)
-                .IsRequired()
-                .HasMaxLength(150);
+            modelBuilder.ApplyConfiguration(new FluentEducationConfig());
 
             #endregion
 
             #region WorkExperiences
 
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.WorkExperiences)
-                .WithOne(s => s.User)
-                .HasForeignKey(s => s.UserId);
-
-            modelBuilder.Entity<WorkExperiences>()
-                .Property(e => e.StartDate)
-                .IsRequired();
-
-            modelBuilder.Entity<WorkExperiences>()
-                .Property(e => e.JobTitle)
-                .HasMaxLength(200)
-                .IsRequired();
-
-            modelBuilder.Entity<WorkExperiences>()
-                .Property(e => e.CompanyName)
-                .HasMaxLength(200)
-                .IsRequired();
-
-            modelBuilder.Entity<WorkExperiences>()
-                .Property(e => e.Description)
-                .HasMaxLength(500);
+            modelBuilder.ApplyConfiguration(new FluentWorkExperiencesConfig());
+            
 
             #endregion
 
 
             #region Project
-            modelBuilder.Entity<Project>()
-               .Property(c => c.Title)
-               .HasMaxLength(200)
-               .IsRequired();
 
-            modelBuilder.Entity<Project>()
-               .Property(c => c.PictureName)
-               .HasMaxLength(200)
-               .IsRequired();
-
-            modelBuilder.Entity<Project>()
-               .Property(c => c.Description)
-               .HasMaxLength(500)
-               .IsRequired();
-
-            modelBuilder.Entity<Project>()
-                .Property(c => c.DeepLink)
-                .HasMaxLength(200);
-
+            modelBuilder.ApplyConfiguration(new FluentProjectConfig());
             #endregion
 
             #region Category    
 
 
-            modelBuilder.Entity<Category>()
-                .Property(c=> c.Title)
-                .HasMaxLength(200)
-                .IsRequired();
+            modelBuilder.ApplyConfiguration(new FluentCategoryConfig());
 
             #endregion
         }
