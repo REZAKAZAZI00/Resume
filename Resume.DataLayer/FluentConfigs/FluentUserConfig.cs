@@ -45,6 +45,10 @@ public class FluentUserConfig : IEntityTypeConfiguration<User>
         builder.HasOne(u => u.AboutMe)
                .WithOne(a => a.User)
                .HasForeignKey<AboutMe>(a => a.UserId);
+
+        builder.HasMany(b=> b.Blogs)
+               .WithOne(u=> u.User)
+               .HasForeignKey(u => u.UserId);
         #endregion
     }
 }

@@ -40,7 +40,14 @@
         #region Project
 
         public DbSet<Project> Projects { get; set; }
-        public DbSet<Category> Categories  { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        #endregion
+
+        #region Blog
+
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<CategoryBlog> CategoryBlogs { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -73,7 +80,7 @@
                  {
                      UserId = 1,
                      Id = 1,
-                     InstitutionName="Jabarean ctiy",  
+                     InstitutionName = "Jabarean ctiy",
                      CreateDate = DateTime.Now,
                      StartDate = DateOnly.Parse("2020-09-01"),
                      Degree = "Bachelor's",
@@ -88,12 +95,37 @@
                     CreateDate = DateTime.Now,
                     Id = 1,
                     UserId = 1,
-                    StartDate=DateOnly.Parse("2023-02-01"),
-                    EndDate=DateOnly.Parse("2024-04-01"),
-                    JobTitle="Backend Devloper",
-                    Description="backend devloper asp.net core"
+                    StartDate = DateOnly.Parse("2023-02-01"),
+                    EndDate = DateOnly.Parse("2024-04-01"),
+                    JobTitle = "Backend Devloper",
+                    Description = "backend devloper asp.net core"
                 });
 
+            #endregion
+
+
+            #region QueryFilter
+
+            modelBuilder.Entity<Category>()
+                .HasQueryFilter(c => !c.IsDelete);
+
+            modelBuilder.Entity<CategoryBlog>()
+                .HasQueryFilter(c => !c.IsDelete);
+            #endregion
+
+            #region Comment 
+
+            modelBuilder.ApplyConfiguration(new FluentCommentConfig());
+            #endregion
+
+            #region CategoryBlog
+
+            modelBuilder.ApplyConfiguration(new FluentCategoryBlogConfig());
+            #endregion
+
+            #region Blog
+
+            modelBuilder.ApplyConfiguration(new FluentBlogConfig());
             #endregion
 
             #region User
@@ -107,7 +139,7 @@
 
 
             #region AboutMe
-           
+
             modelBuilder.ApplyConfiguration(new FluentAboutMeConfig());
 
             #endregion
@@ -125,7 +157,7 @@
             #region WorkExperiences
 
             modelBuilder.ApplyConfiguration(new FluentWorkExperiencesConfig());
-            
+
 
             #endregion
 

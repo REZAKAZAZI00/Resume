@@ -14,6 +14,7 @@ global using Resume.DataLayer.Entities.Education;
 global using Resume.DataLayer.Entities.WorkExperiences;
 global using Resume.DataLayer.Entities.Project;
 global using Resume.DataLayer.FluentConfigs;
+global using Resume.DataLayer.Entities.Blog;
 
 
 

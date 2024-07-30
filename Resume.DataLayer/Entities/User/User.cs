@@ -24,5 +24,7 @@ public class User : BaseEntity<int>
     public virtual List<Education.Education>? Educations { get; set; }
 
     public virtual List<WorkExperiences.WorkExperiences>? WorkExperiences { get; set; }
+
+    public virtual List<Blog.Blog>? Blogs { get; set; }
     #endregion
 }
