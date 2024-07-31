@@ -11,7 +11,7 @@ public class User : BaseEntity<int>
 
     public bool IaActive { get; set; }
 
-    public DateTime BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
 
 
     #endregion
