@@ -16,6 +16,7 @@ public static class DiContainer
         service.AddScoped<ICategoryService,CategoryService>();
         service.AddScoped<IProjectService,ProjectService>();
         service.AddScoped<IStatisticsService, StatisticsService>();
+        service.AddScoped<IAboutMeService, AboutMeService>();
 
         #endregion
 
