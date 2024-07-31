@@ -271,6 +271,7 @@ public class UserService : IUserService
                      Phone = u.Phone,
                      Id = u.Id,
                      Bio=u.AboutMe.Bio,
+                     Position=u.AboutMe.Position,
                      Location= u.AboutMe.Location,
                      PictureName = u.AboutMe.PictureName,
                 }).SingleOrDefaultAsync();

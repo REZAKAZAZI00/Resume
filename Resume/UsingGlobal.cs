@@ -16,5 +16,7 @@ global using Resume.Core.Convertors;
 global using Resume.Core.DTOs.Education;
 global using Resume.Core.DTOs.WorkExperiences;
 global using Resume.Web.Controllers;
+global using Resume.Core.DTOs.AboutMe;
+
 
 

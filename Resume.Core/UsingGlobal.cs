@@ -29,5 +29,6 @@ global using Resume.Core.DTOs.Category;
 global using Resume.DataLayer.Entities.Project;
 global using System.Web.Mvc;
 global using Resume.Core.DTOs.Project;
+global using Resume.Core.DTOs.AboutMe;
 
 
