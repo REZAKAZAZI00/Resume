@@ -182,11 +182,11 @@
                                                 <td>@item.LastName </td>
                                                 <td>@item.Phone</td>
                                                 <td>@item.Email</td>
-                                                <td>@item.BirthDate</td>
+                                                <td>@item.BirthDate.ToCustomString()</td>
                                 
                                                 <td>
                                                     <div class="form-button-action">
-                                                        <a href="admin">
+                                                        <a href="/admin/user/edit/@item.Id">
                                                         <button  type="button"
                                                                 data-bs-toggle="tooltip"
                                                                 title=""

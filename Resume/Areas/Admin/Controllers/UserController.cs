@@ -47,17 +47,18 @@ public class UserController : Controller
 
     #region Update
 
-    [HttpGet]
+    [HttpGet("/admin/user/edit/{id}")]
     public async Task<IActionResult> Update(int id)
     {
         var user = await _userService.GetUserForEditByIdAsync(id);
         if (user is null)
             return NotFound();
 
-        return View();
+        return View(user);
 
     }
-    [HttpPost]
+
+    [HttpPost("/admin/user/edit")]
     public async Task<IActionResult> Update(EditUserViewModel model)
     {
         if (!ModelState.IsValid) 
