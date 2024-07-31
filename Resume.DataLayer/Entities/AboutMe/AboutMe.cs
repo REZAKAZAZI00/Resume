@@ -5,6 +5,8 @@ public class AboutMe:BaseEntity<int>
 
     public string? Bio { get; set; }
 
+    public string? Position { get; set; }
+
     public string? Location { get; set; }
 
     public string? PictureName { get; set; }
