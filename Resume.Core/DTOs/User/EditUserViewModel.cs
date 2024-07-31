@@ -33,6 +33,6 @@ public class EditUserViewModel
     public bool IaActive { get; set; }
 
     [Display(Name = "تاریخ تولد")]
-    public DateTime BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
 }
 

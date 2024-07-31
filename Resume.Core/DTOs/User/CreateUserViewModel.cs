@@ -41,7 +41,7 @@ public class CreateUserViewModel
 
     [Display(Name = "تاریخ تولد")]
 
-    public DateTime BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
 
 }
 

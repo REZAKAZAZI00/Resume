@@ -40,13 +40,15 @@ public class UserInfoViewModel
 
     [Display(Name = "BirthDate")]
 
-    public DateTime BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
 
     public DateTime CreateDate { get; set; }
 
     public string? Bio { get; set; }
 
     public string? Location { get; set; }
+
+    public string? Position { get; set; }
 
     public string? PictureName { get; set; }
 }
