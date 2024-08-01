@@ -70,6 +70,14 @@ public class SkillsController : Controller
 
     #region Delete
 
+    [HttpPost("/admin/skills/delete/{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var result = await _skillsService.DeleteAsync(id);
+
+        ViewData["result"] = result;
+        return View();
+    }
     #endregion
 
 
