@@ -1,7 +1,6 @@
-﻿using System.Web.Mvc;
+﻿
 
 namespace Resume.Core.Services;
-
 public class SkillsService : ISkillsService
 {
 
@@ -48,16 +47,16 @@ public class SkillsService : ISkillsService
 
             string filterName = $"%{model.SkillName}%";
             if (!string.IsNullOrEmpty(model.SkillName))
-                query = query.Where(s => EF.Functions.Like(s.SkillName,filterName ));
+                query = query.Where(s => EF.Functions.Like(s.SkillName, filterName));
 
 
             await model.Paging(query
                 .Select(s => new SkillsDetailsViewModel
                 {
-                    SkillName=s.SkillName,
-                    SkillLevel=s.SkillLevel,
-                    SkillId=s.Id
-                    
+                    SkillName = s.SkillName,
+                    SkillLevel = s.SkillLevel,
+                    SkillId = s.Id
+
                 }));
 
             return model;
@@ -69,5 +68,126 @@ public class SkillsService : ISkillsService
         }
 
     }
+
+    public async Task<OutPutModel<bool>> CreateAsync(CreateSkillsViewModel model)
+    {
+        try
+        {
+
+            var newSkills = new Skills
+            {
+                CreateDate = DateTime.Now,
+                SkillLevel = model.Level,
+                SkillName = model.Name,
+                UserId = 2,
+            };
+            _context.Skills.Add(newSkills);
+            await _context.SaveChangesAsync();
+            return new OutPutModel<bool>
+            {
+                Result = true,
+                StatusCode = 200,
+                Message = "Added successfully."
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return new OutPutModel<bool>
+            {
+                StatusCode = 500,
+                Result = false,
+                Message = ex.Message
+            };
+        }
+    }
+
+    public async Task<OutPutModel<bool>> UpdateAsync(UpdateSkillsViewModel model)
+    {
+        try
+        {
+            var skill = await _context.Skills.FindAsync(model.SkillsId);
+            if (skill is null)
+                return new OutPutModel<bool>
+                {
+                    StatusCode = 404,
+                    Result = false,
+                    Message = "Not Found Skill"
+                };
+
+            skill.SkillLevel = model.Level;
+            skill.SkillName = model.Name;
+
+            _context.Skills.Update(skill);
+            await _context.SaveChangesAsync();
+            return new OutPutModel<bool>
+            {
+                Result = true,
+                StatusCode = 200,
+                Message = "Updated successfully."
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return new OutPutModel<bool>
+            {
+                StatusCode = 500,
+                Result = false,
+                Message = ex.Message
+            };
+        }
+    }
+
+    public async Task<OutPutModel<bool>> DeleteAsync(int id)
+    {
+        try
+        {
+            var exsitingSkills = await _context.Skills
+                .SingleOrDefaultAsync(s => s.Id == id);
+            if (exsitingSkills is null)
+                return new OutPutModel<bool>
+                {
+                    StatusCode = 404,
+                    Result = false,
+                    Message = "NotFound Skills."
+                };
+
+            _context.Skills.Remove(exsitingSkills);
+            await _context.SaveChangesAsync();
+
+            return new OutPutModel<bool>
+            {
+                StatusCode = 200,
+                Result = true,
+                Message = "",
+            };
+        }
+        catch (Exception ex)
+        {
+
+            return new OutPutModel<bool>
+            {
+                StatusCode = 500,
+                Message = ex.Message,
+                Result = false
+            };
+        }
+    }
+
+    public async Task<UpdateSkillsViewModel> GetSkillByIdAsync(int id)
+    {
+        var skill = await _context.Skills
+           .Where(s => s.Id == id)
+           .Select(s => new UpdateSkillsViewModel
+           {
+               Level = s.SkillLevel,
+               Name = s.SkillName,
+               SkillsId= s.Id,
+           }).SingleOrDefaultAsync();
+
+        return skill;
+    }
+
     #endregion
 }

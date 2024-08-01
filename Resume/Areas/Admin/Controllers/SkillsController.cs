@@ -15,7 +15,6 @@ public class SkillsController : Controller
 
 
 
-
     #region Actions
 
     #region Filter
@@ -31,11 +30,42 @@ public class SkillsController : Controller
     #endregion
 
     #region Create
+    [HttpGet("/admin/skills/create")]
+    public async Task<IActionResult> Create()
+    {
+        
+        return View();
+    }
 
+    [HttpPost("/admin/skills/create")]
+    public async Task<IActionResult> Create(CreateSkillsViewModel model)
+    {
+        var result = await _skillsService.CreateAsync(model);
+
+        ViewData["result"]=result;
+        return View();
+    }
     #endregion
 
     #region Update
 
+    [HttpGet("/admin/skills/update/{id}")]
+    public async Task<IActionResult> Update(int id)
+    {
+        var result=await _skillsService.GetSkillByIdAsync(id);
+        return View(result);
+    }
+
+    [HttpPost("/admin/skills/update")]
+    public async Task<IActionResult> Update(UpdateSkillsViewModel model)
+    {
+        if (!ModelState.IsValid) 
+            return View(model);
+        var result = await _skillsService.UpdateAsync(model);
+
+        ViewData["result"] = result;
+        return View();
+    }
     #endregion
 
     #region Delete
