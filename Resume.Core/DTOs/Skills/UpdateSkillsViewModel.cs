@@ -12,6 +12,5 @@ public class UpdateSkillsViewModel
 
     [Display(Name = "Level")]
     [Required(ErrorMessage = "Please enter {0}")]
-    [MaxLength(10, ErrorMessage = "{0} cannot be more than {1} characters.")]
     public int Level { get; set; }
 }
