@@ -80,7 +80,7 @@
                                 <ul class="nav nav-collapse">
                                     <li>
                                         <a href="../demo1/index.html">
-                                            <span class="sub-item">Dashboard 1</span>
+                                            <span class="sub-item">Dashboard</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -175,7 +175,7 @@
                             <div class="collapse" id="maps">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="/admin/education">
+                                        <a href="/admin/educations">
                                             <span class="sub-item">Education</span>
                                         </a>
                                     </li>
@@ -207,112 +207,50 @@
                         </li>
                        
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#submenu">
-                                <i class="fas fa-bars"></i>
+                            <a data-bs-toggle="collapse" href="#project">
+                                <i class="far fa-chart-bar"></i>
                                 <p>Project</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="submenu">
+                            <div class="collapse" id="project">
                                 <ul class="nav nav-collapse">
+
                                     <li>
-                                        <a data-bs-toggle="collapse" href="#subnav1">
-                                            <span class="sub-item">Project</span>
-                                            <span class="caret"></span>
+                                        <a href="/admin/Projects">
+                                            <span class="sub-item">Projects</span>
                                         </a>
-                                        <div class="collapse" id="subnav1">
-                                            <ul class="nav nav-collapse subnav">
-                                                <li>
-                                                    <a href="/admin/projects">
-                                                        <span class="sub-item">Projects</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/project/create">
-                                                        <span class="sub-item">Create Projects</span>
-                                                    </a>
-                                                </li>
-                                               
-                                            </ul>
-                                        </div>
                                     </li>
                                     <li>
-                                        <a data-bs-toggle="collapse" href="#subnav2">
-                                            <span class="sub-item">Project Category</span>
-                                            <span class="caret"></span>
+                                        <a href="/admin/workexperience/create">
+                                            <span class="sub-item">create Project</span>
                                         </a>
-                                        <div class="collapse" id="subnav2">
-                                            <ul class="nav nav-collapse subnav">
-                                                <li>
-                                                    <a href="/admin/categories">
-                                                        <span class="sub-item">Categories</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/categories/create">
-                                                        <span class="sub-item">create Category</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </li>
-                                    
                                 </ul>
                             </div>
                         </li>
-
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#">
-                                <i class="fas fa-blog"></i>
-                                <p>Blogs</p>
+                            <a data-bs-toggle="collapse" href="#blog">
+                                <i class="far fa-chart-bar"></i>
+                                <p>Blog</p>
                                 <span class="caret"></span>
                             </a>
-                            <div class="collapse" id="submenu">
+                            <div class="collapse" id="blog">
                                 <ul class="nav nav-collapse">
-                                    <li>
-                                        <a data-bs-toggle="collapse" href="#subnav1">
-                                            <span class="sub-item">Blog</span>
-                                            <span class="caret"></span>
-                                        </a>
-                                        <div class="collapse" id="subnav1">
-                                            <ul class="nav nav-collapse subnav">
-                                                <li>
-                                                    <a href="/admin/blog">
-                                                        <span class="sub-item">blog</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/project/create">
-                                                        <span class="sub-item">Create Projects</span>
-                                                    </a>
-                                                </li>
 
-                                            </ul>
-                                        </div>
+                                    <li>
+                                        <a href="/admin/workexperience">
+                                            <span class="sub-item">Blogs</span>
+                                        </a>
                                     </li>
                                     <li>
-                                        <a data-bs-toggle="collapse" href="#subnav2">
-                                            <span class="sub-item">Project Category</span>
-                                            <span class="caret"></span>
+                                        <a href="/admin/workexperience/create">
+                                            <span class="sub-item">Create Blog</span>
                                         </a>
-                                        <div class="collapse" id="subnav2">
-                                            <ul class="nav nav-collapse subnav">
-                                                <li>
-                                                    <a href="/admin/categories">
-                                                        <span class="sub-item">Categories</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="/admin/categories/create">
-                                                        <span class="sub-item">create Category</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </li>
-
                                 </ul>
                             </div>
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -854,33 +792,8 @@
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="/admin/assets/js/setting-demo.js"></script>
     <script src="/admin/assets/js/demo.js"></script>
-    <script>
-        $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
-            type: "line",
-            height: "70",
-            width: "100%",
-            lineWidth: "2",
-            lineColor: "#177dff",
-            fillColor: "rgba(23, 125, 255, 0.14)",
-        });
+    
+    @RenderSection("Scripts", false)
 
-        $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-            type: "line",
-            height: "70",
-            width: "100%",
-            lineWidth: "2",
-            lineColor: "#f3545d",
-            fillColor: "rgba(243, 84, 93, .14)",
-        });
-
-        $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-            type: "line",
-            height: "70",
-            width: "100%",
-            lineWidth: "2",
-            lineColor: "#ffa534",
-            fillColor: "rgba(255, 165, 52, .14)",
-        });
-    </script>
 </body>
 </html>

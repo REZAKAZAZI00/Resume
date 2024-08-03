@@ -56,7 +56,7 @@ public class SkillsController : Controller
         return View(result);
     }
 
-    [HttpPost("/admin/skills/update")]
+    [HttpPost("/admin/skills/update/{id}")]
     public async Task<IActionResult> Update(UpdateSkillsViewModel model)
     {
         if (!ModelState.IsValid) 

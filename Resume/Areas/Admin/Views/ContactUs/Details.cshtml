@@ -1,0 +1,94 @@
+﻿@model ContactUsDetailsViewModel
+@{
+    ViewData["Tilte"] = "ContactUs";
+}
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3"></h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="#">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    Dashboard
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">ContactUs</a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Details @Model.Title</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Edit Contact </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8 col-lg-6">
+                                <form asp-action="details" asp-controller="contactus" method="post">
+                                    <input type="hidden" asp-for="Id" />
+
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" id="title" asp-for="Title" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstName">FirstName</label>
+                                        <input type="text" class="form-control" id="firstName" asp-for="FirstName" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">LastName</label>
+                                        <input type="text" class="form-control" id="lastName" asp-for="LastName" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneNumber">PhoneNumber</label>
+                                        <input type="text" class="form-control" id="phoneNumber" asp-for="PhoneNumber" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" asp-for="Email" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control" id="description" asp-for="Description" disabled>@Model.Description</textarea>
+                                        <span asp-validation-for="Description"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="answer">Answer</label>
+                                        <textarea class="form-control" id="answer" asp-for="Answer" placeholder="Answer">@Model.Answer</textarea>
+                                        <span asp-validation-for="Answer"></span>
+                                    </div>
+
+                                    @if (string.IsNullOrEmpty(Model.Answer))
+                                    {
+                                        <div class="card-action">
+                                            <button class="btn btn-success">Submit</button>
+                                        </div>
+                                    }
+                                </form>
+
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,7 +16,7 @@
                             <h6>Hello Everybody, i am</h6>
                             <h3>@userInfo.FirstName @userInfo.LastName</h3>
                             <h4> @userInfo.Position </h4>
-                            <p>@userInfo.Bio</p>
+                            <p> @Html.Raw(userInfo.Bio)</p>
                             <ul class="list basic_info">
                                 <li><a href="#"><i class="lnr lnr-calendar-full"></i> @userInfo.BirthDate.ToCustomString()</a></li>
                                 <li><a href="#"><i class="lnr lnr-phone-handset"></i> @userInfo.Phone </a></li>
