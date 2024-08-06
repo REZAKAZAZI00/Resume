@@ -39,7 +39,7 @@ public class CategoryService : ICategoryService
             {
                 StatusCode = 200,
                 Result = true,
-                Message = ""
+                Message = "Added SuccessFully."
             };
         }
         catch (Exception ex)
@@ -47,7 +47,7 @@ public class CategoryService : ICategoryService
             _logger.LogError(ex.Message, ex);
             return new OutPutModel<bool>
             {
-                Message = ex.Message,
+                Message = "Unexpected error. Please try again.",
                 StatusCode = 500,
                 Result = false,
             };
@@ -55,9 +55,115 @@ public class CategoryService : ICategoryService
         }
     }
 
-    public Task<FilterCategoryViewModel> FilterAsync(FilterCategoryViewModel model)
+    public async Task<OutPutModel<bool>> DeleteAsync(DeleteCategoryViewModel model)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var category = await _context.Categories.FindAsync(model.CategoryId);
+            if (category is null)
+                return new OutPutModel<bool>
+                {
+                    StatusCode = 404,
+                    Message = "Not Found Category.",
+                    Result = false,
+                };
+
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+            return new OutPutModel<bool>
+            {
+                Result = true,
+                StatusCode = 200,
+                Message = "Deleted SuccessFully."
+            };
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return new OutPutModel<bool>
+            {
+                StatusCode = 500,
+                Result = false,
+                Message = "Unexpected error. Please try again.",
+
+            };
+        }
+    }
+
+    public async Task<FilterCategoryViewModel> FilterAsync(FilterCategoryViewModel model)
+    {
+        try
+        {
+            var query = _context.Categories
+                .AsNoTracking()
+                .AsQueryable();
+            string title = $"%{model.Title}%";
+            if (!string.IsNullOrEmpty(model.Title))
+                query = query.Where(s => EF.Functions.Like(s.Title, title));
+
+
+            await model.Paging(query
+                .Select(c => new CategoryDetailsViewModel
+                {
+                    Title = c.Title,
+                    CategoryId = c.Id,
+                    Description = c.Description,
+                }));
+
+            return model;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return null;
+        }
+    }
+
+    public async Task<DeleteCategoryViewModel> GetForDeleteByIdAsync(int id)
+    {
+        try
+        {
+            var category = await _context.Categories.
+                 Where(c => c.Id == id)
+                 .Select(c => new DeleteCategoryViewModel
+                 {
+                     CategoryId = c.Id,
+                     Title = c.Title,
+                 })
+                 .SingleOrDefaultAsync();
+
+            return category;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return null;
+
+        }
+    }
+
+    public async Task<UpdateCategoryViewModel> GetForUpdateByIdAsync(int id)
+    {
+        try
+        {
+            var category = await _context.Categories
+                .Where(c => c.Id == id)
+                .Select(c => new UpdateCategoryViewModel
+                {
+                    CategoryId = c.Id,
+                    Description = c.Description,
+                    Title = c.Title,
+                })
+                .SingleOrDefaultAsync();
+
+            return category;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return null;
+        }
     }
 
     public async Task<OutPutModel<bool>> UpdateAsync(UpdateCategoryViewModel model)
@@ -71,7 +177,7 @@ public class CategoryService : ICategoryService
                 {
                     StatusCode = 404,
                     Result = false,
-                    Message = ""
+                    Message = "Not Found Category."
                 };
 
             category.Description = model.Description;
@@ -83,15 +189,15 @@ public class CategoryService : ICategoryService
             {
                 StatusCode = 200,
                 Result = true,
-                Message = ""
+                Message = "Updated SuccessFully."
             };
         }
         catch (Exception ex)
         {
-
+            _logger.LogError(ex.Message, ex);
             return new OutPutModel<bool>
             {
-                Message = ex.Message,
+                Message = "Unexpected error. Please try again.",
                 StatusCode = 500,
                 Result = false,
             };

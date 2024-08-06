@@ -2,8 +2,9 @@
 
 public class FilterCategoryViewModel:BasePaging<CategoryDetailsViewModel>
 {
+    [Display(Name ="Title")]
     public string? Title { get; set; }
 
-    public string? Description { get; set; }
+   
 }
 
