@@ -1,0 +1,104 @@
+﻿@model UpdateWorkExperiencesViewModel
+
+@{
+    ViewData["Title"] = "Update";
+}
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3"></h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="/admin">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    Dashboard
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/Experiences">Experiences</a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Edit Experiences</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Edit Experiences </div>
+                    </div>
+
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8 col-lg-6">
+                                <form asp-route="/admin/experiences/update" method="post">
+                                    <input type="hidden" asp-for="WE_Id" />
+                                    <div class="form-group">
+                                        <label for="email2">Title</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="email2"
+                                               asp-for="JobTitle" />
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email2">Description </label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="email2"
+                                               asp-for="Description" />
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email2">CompanyName </label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="email2"
+                                               asp-for="CompanyName" />
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email2">StartDate</label>
+                                        <input type="date"
+                                               class="form-control"
+                                               id="email2"
+                                               asp-for="StartDate" />
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email2">EndDate</label>
+                                        <input type="date"
+                                               class="form-control"
+                                               id="email2"
+                                               asp-for="EndDate" />
+
+                                    </div>
+
+
+                                    <div class="card-action">
+                                        <button class="btn btn-success">Submit</button>
+
+                                    </div>
+
+                                </form>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

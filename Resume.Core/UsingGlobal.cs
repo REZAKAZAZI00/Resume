@@ -31,5 +31,7 @@ global using System.Web.Mvc;
 global using Resume.Core.DTOs.Project;
 global using Resume.Core.DTOs.AboutMe;
 global using Resume.DataLayer.Entities.Skills;
+global using Resume.DataLayer.Entities.Education;
+global using Resume.DataLayer.Entities.WorkExperiences;
 
 
