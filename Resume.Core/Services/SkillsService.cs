@@ -1,6 +1,4 @@
-﻿
-
-namespace Resume.Core.Services;
+﻿namespace Resume.Core.Services;
 public class SkillsService : ISkillsService
 {
 
@@ -139,12 +137,12 @@ public class SkillsService : ISkillsService
         }
     }
 
-    public async Task<OutPutModel<bool>> DeleteAsync(int id)
+    public async Task<OutPutModel<bool>> DeleteAsync(DeleteSkillsViewModel model)
     {
         try
         {
             var exsitingSkills = await _context.Skills
-                .SingleOrDefaultAsync(s => s.Id == id);
+                .FindAsync(model.SkillsId);
             if (exsitingSkills is null)
                 return new OutPutModel<bool>
                 {
@@ -160,7 +158,7 @@ public class SkillsService : ISkillsService
             {
                 StatusCode = 200,
                 Result = true,
-                Message = "",
+                Message = "Deleted Successfully.",
             };
         }
         catch (Exception ex)
@@ -184,6 +182,19 @@ public class SkillsService : ISkillsService
                Level = s.SkillLevel,
                Name = s.SkillName,
                SkillsId= s.Id,
+           }).SingleOrDefaultAsync();
+
+        return skill;
+    }
+
+    public async Task<DeleteSkillsViewModel> GetForDeleteAsync(int id)
+    {
+        var skill = await _context.Skills
+           .Where(s => s.Id == id)
+           .Select(s => new DeleteSkillsViewModel
+           {
+               Name = s.SkillName,
+               SkillsId = s.Id,
            }).SingleOrDefaultAsync();
 
         return skill;

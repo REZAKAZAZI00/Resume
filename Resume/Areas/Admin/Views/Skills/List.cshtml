@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "List Users";
+    var result = ViewData["result"] as OutPutModel<bool>;
+
 }
 <div class="container">
     <div class="page-inner">
@@ -28,18 +30,32 @@
             </ul>
         </div>
         <div class="row">
+            @if (result is not null)
+            {
+                <script>
+
+                    $(document).ready(function () {
+                        swal("@(result.StatusCode == 200 ? "success" : "error")", "@result.Message", {
+                            icon: "@(result.StatusCode == 200 ? "success" : "error")",
+                            buttons: {
+                                confirm: {
+                                    className: "btn @(result.StatusCode == 200 ? "btn-success" : "btn-danger") ",
+                                },
+                            },
+                        });
+                    });
+                </script>
+            }
 
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Skills</h4>
-                            <button class="btn btn-primary btn-round ms-auto"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#addRowModal">
+                            <a href="/admin/users/create" class="btn btn-primary btn-round ms-auto"
                                 <i class="fa fa-plus"></i>
                                 Add Skill
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="card-header">
@@ -171,6 +187,7 @@
                                                                 <i class="fa fa-edit"></i>
                                                             </button>
                                                         </a>
+                                                        <a href="/admin/skills/delete/@item.SkillId">
                                                             <button id="alert_demo_8" type="button" value="@item.SkillId"
                                                                     data-bs-toggle="tooltip"
                                                                     title=""
@@ -178,7 +195,7 @@
                                                                     data-original-title="Remove">
                                                                 <i class="fa fa-times"></i>
                                                             </button>
-                                                        
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>

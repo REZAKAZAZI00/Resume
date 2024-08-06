@@ -9,8 +9,8 @@ public interface ISkillsService
 
     Task<OutPutModel<bool>> CreateAsync(CreateSkillsViewModel model);
     Task<OutPutModel<bool>> UpdateAsync(UpdateSkillsViewModel model);
-    Task<OutPutModel<bool>> DeleteAsync(int id);
-
+    Task<OutPutModel<bool>> DeleteAsync(DeleteSkillsViewModel model);
+    Task<DeleteSkillsViewModel> GetForDeleteAsync(int id);
     Task<UpdateSkillsViewModel> GetSkillByIdAsync(int id);
 
 

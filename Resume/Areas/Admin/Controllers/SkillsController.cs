@@ -14,16 +14,19 @@ public class SkillsController : Controller
     #endregion
 
 
-
     #region Actions
 
     #region Filter
     [HttpGet("/admin/skills")]
-
     public async Task<IActionResult> List(FilterSkillsViewModel model)
     {
        var result=await _skillsService.FilterAsync(model);
-
+        var resultJson = TempData["result"] as string;
+        if (resultJson != null)
+        {
+            var result2 = JsonConvert.DeserializeObject<OutPutModel<bool>>(resultJson);
+            ViewData["result"] = result2;
+        }
         return View(result);
     }
 
@@ -42,8 +45,8 @@ public class SkillsController : Controller
     {
         var result = await _skillsService.CreateAsync(model);
 
-        ViewData["result"]=result;
-        return View();
+        TempData["result"] = JsonConvert.SerializeObject(result);
+        return RedirectToAction("List");
     }
     #endregion
 
@@ -63,23 +66,34 @@ public class SkillsController : Controller
             return View(model);
         var result = await _skillsService.UpdateAsync(model);
 
-        ViewData["result"] = result;
-        return View();
+        TempData["result"] = JsonConvert.SerializeObject(result);
+        return RedirectToAction("List");
+
     }
     #endregion
 
     #region Delete
 
-    [HttpPost("/admin/skills/delete/{id}")]
+    [HttpGet("/admin/skills/delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var result = await _skillsService.DeleteAsync(id);
+        var result = await _skillsService.GetForDeleteAsync(id);
 
-        ViewData["result"] = result;
-        return View();
+        return View(result);
+    }
+
+    [HttpPost("/admin/skills/delete/{id}")]
+    public async Task<IActionResult> Delete(DeleteSkillsViewModel model)
+    {
+
+        var result = await _skillsService.DeleteAsync(model);
+        TempData["result"] = JsonConvert.SerializeObject(result);
+        return RedirectToAction("List");
+
     }
     #endregion
-
-
     #endregion
+
+
+    
 }
