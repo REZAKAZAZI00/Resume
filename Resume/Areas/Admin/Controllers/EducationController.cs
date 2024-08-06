@@ -26,6 +26,12 @@ public class EducationController : AdminBaseController
     {
 
         var result=await _educationService.FilterAsync(model);
+        var resultJson = TempData["result"] as string;
+        if (resultJson != null)
+        {
+            var result2 = JsonConvert.DeserializeObject<OutPutModel<bool>>(resultJson);
+            ViewData["result"] = result2;
+        }
         return View(result);
     }
     #endregion
@@ -44,8 +50,8 @@ public class EducationController : AdminBaseController
     public async Task<IActionResult> Create(CreateEducationViewModel model)
     {
         var result=await _educationService.CreateAsync(model);
-        ViewData["result"] = result;
-        return View();
+        TempData["result"] = JsonConvert.SerializeObject(result);
+        return RedirectToAction("List");
     }
 
 
@@ -54,27 +60,48 @@ public class EducationController : AdminBaseController
 
 
     #region Update
-    [HttpGet("/admin/educations/update")]
-    public async Task<IActionResult> Update()
+    [HttpGet("/admin/educations/update/{id}")]
+    public async Task<IActionResult> Update(int id)
     {
-        return View();
+        var result=await _educationService.GetEducationForUpdateById(id);
+
+        return View(result);
     }
 
-    [HttpPost("/admin/educations/update")]
+    [HttpPost("/admin/educations/update/{id}")]
     public async Task<IActionResult> Update(UpdateEducationViewModel model)
     {
+        if (!ModelState.IsValid)
+            return View(model);
+
         var result = await _educationService.UpdateAsync(model);
-        ViewData["result"] = result;
-        return View();
+        TempData["result"] =JsonConvert.SerializeObject(result);
+
+        return RedirectToAction("List");
     }
     #endregion
 
     #region Delete
-    [HttpGet("/admin/educations/delete")]
-    public async Task<IActionResult> Delete()
+    [HttpGet("/admin/educations/delete/{id}")]
+    public async Task<IActionResult> Delete(int id)
     {
-        return View();
+        var reslut=await _educationService.GetEducationForDeleteById(id);
+        return View(reslut);
     }
+
+    [HttpPost("/admin/educations/delete/{id}")]
+    public async Task<IActionResult> Delete(DeleteEducationViewModel model)
+    {
+        if (!ModelState.IsValid)
+            return View(model); 
+
+        var reslut = await _educationService.DeleteAsync(model);
+        TempData["result"] =  JsonConvert.SerializeObject(reslut);
+
+        return RedirectToAction("List");
+    }
+
+
     #endregion
 
     #endregion

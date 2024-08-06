@@ -1,8 +1,4 @@
-﻿
-using Resume.DataLayer.Entities.Education;
-using System.Web.Mvc;
-
-namespace Resume.Core.Services;
+﻿namespace Resume.Core.Services;
 
 public class EducationService : IEducationService
 {
@@ -27,24 +23,24 @@ public class EducationService : IEducationService
     {
         try
         {
-            var newEducation=new Education()
+            var newEducation = new Education()
             {
-                 CreateDate = DateTime.Now,
-                 EndDate=model.EndDate,
-                 StartDate=model.StartDate,
-                 Description=model.Description,
-                 Degree=model.Degree,
-                 FieldOfStudy=model.FieldOfStudy,
-                 InstitutionName=model.InstitutionName,
-                 UserId=2,
+                CreateDate = DateTime.Now,
+                EndDate = model.EndDate,
+                StartDate = model.StartDate,
+                Description = model.Description,
+                Degree = model.Degree,
+                FieldOfStudy = model.FieldOfStudy,
+                InstitutionName = model.InstitutionName,
+                UserId = 2,
             };
             _context.Educations.Add(newEducation);
             await _context.SaveChangesAsync();
             return new OutPutModel<bool>
             {
-                 StatusCode=200,
-                 Result=true,
-                 Message="Added SuccessFully."
+                StatusCode = 200,
+                Result = true,
+                Message = "Added SuccessFully."
             };
         }
         catch (Exception ex)
@@ -60,14 +56,41 @@ public class EducationService : IEducationService
         }
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<OutPutModel<bool>> DeleteAsync(DeleteEducationViewModel model)
     {
-        var education = await _context.Educations.FindAsync(id);
-        if (education != null)
+        try
         {
-            _context.Educations.Remove(education);
-            await _context.SaveChangesAsync();
+            var education = await _context.Educations.FindAsync(model.EducationId);
+            if (education != null)
+            {
+
+                _context.Educations.Remove(education);
+                await _context.SaveChangesAsync();
+                return new OutPutModel<bool>
+                {
+                     StatusCode=200,
+                     Result= true,
+                     Message= "Deleted SuccessFully."
+                };
+            }
+            return new OutPutModel<bool>
+            {
+                StatusCode = 404,
+                Result = false,
+                Message= "Not Found Education."
+            };
         }
+        catch (Exception ex)
+        {
+
+            return new OutPutModel<bool>
+            {
+                StatusCode = 500,
+                Message = "Unexpected error. Please try again.",
+                Result = false,
+            };
+        }
+
     }
 
     public async Task<FilterEducationViewModel> FilterAsync(FilterEducationViewModel model)
@@ -80,22 +103,22 @@ public class EducationService : IEducationService
 
             string name = $"%{model.InstitutionName}%";
             if (!string.IsNullOrEmpty(model.InstitutionName))
-                query = query.Where(e => EF.Functions.Like(e.InstitutionName,name));
+                query = query.Where(e => EF.Functions.Like(e.InstitutionName, name));
 
             string degree = $"%{model.Degree}%";
             if (!string.IsNullOrEmpty(model.Degree))
-                query = query.Where(e => EF.Functions.Like(e.Degree,degree));
+                query = query.Where(e => EF.Functions.Like(e.Degree, degree));
 
             await model.Paging(query
                 .Select(e => new EducationDetailViewModel
                 {
                     Degree = e.Degree,
                     InstitutionName = e.InstitutionName,
-                    StartDate=e.StartDate,
+                    StartDate = e.StartDate,
                     Description = e.Description,
                     FieldOfStudy = e.FieldOfStudy,
-                    EducationId=e.Id,   
-                    EndDate=e.EndDate?? default,
+                    EducationId = e.Id,
+                    EndDate = e.EndDate ?? default,
                 }));
 
             return model;
@@ -103,6 +126,29 @@ public class EducationService : IEducationService
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
+            return null;
+        }
+    }
+
+    public Task<DeleteEducationViewModel> GetEducationForDeleteById(int id)
+    {
+        try
+        {
+            var query = _context.Educations
+                .Where(e => e.Id == id)
+                .Select(e => new DeleteEducationViewModel
+                {
+                    EducationId = e.Id,
+                    InstitutionName = e.InstitutionName,
+                })
+                .SingleOrDefaultAsync();
+
+            return query;
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
             return null;
         }
     }
