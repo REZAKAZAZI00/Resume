@@ -67,8 +67,8 @@ public class CategoryService : ICategoryService
                     Message = "Not Found Category.",
                     Result = false,
                 };
-
-            _context.Categories.Remove(category);
+            category.IsDelete = true;
+            _context.Categories.Update(category);
             await _context.SaveChangesAsync();
             return new OutPutModel<bool>
             {

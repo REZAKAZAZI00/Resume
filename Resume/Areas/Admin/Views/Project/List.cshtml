@@ -1,0 +1,190 @@
+﻿@model FilterProjectViewModel
+@{
+    ViewData["Title"] = "List Educatons";
+    var result = ViewData["result"] as OutPutModel<bool>;
+}
+@if (result is not null)
+{
+    <script>
+
+        $(document).ready(function () {
+            swal("@(result.StatusCode == 200 ? "success" : "error")", "@result.Message", {
+                icon: "@(result.StatusCode == 200 ? "success" : "error")",
+                buttons: {
+                    confirm: {
+                        className: "btn @(result.StatusCode == 200 ? "btn-success" : "btn-danger") ",
+                    },
+                },
+            });
+        });
+    </script>
+}
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Dashboard</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="#">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Educations</a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Educations</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Project</h4>
+                            <button class="btn btn-primary btn-round ms-auto"
+                                <i class="fa fa-plus"></i>
+                                Add Project
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <div class="header">
+                            <h2>
+                                Fillter
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <form method="get" asp-route="/admin/projects" id="filter-search">
+                                <input type="hidden" asp-for="Page" />
+                                <div class="row clearfix">
+
+                                    <div class="col-sm-12 col-md-4">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" asp-for="Title">
+                                                <label class="form-label" asp-for="Title"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="date" class="form-control" asp-for="StartDate">
+                                                <label class="form-label" asp-for="StartDate"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="date" class="form-control" asp-for="EndDate">
+                                                <label class="form-label" asp-for="EndDate"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <button class="btn btn-success">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            @if (Model != null && Model.Entities != null && Model.Entities.Any())
+                            {
+                                <table id="add-row"
+                                       class="display table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>DeepLink</th>
+                                            <th>Description</th>
+                                            <th>Image </th>
+                                            <th>StartDate </th>
+                                            <th>EndDate </th>
+                                            <th style="width: 10%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>DeepLink</th>
+                                            <th>Description</th>
+                                            <th>Image </th>
+                                            <th>StartDate </th>
+                                            <th>EndDate </th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach (var item in Model.Entities)
+                                        {
+                                            <tr>
+                                                <td>@item.Title </td>
+                                                <td>@item.CategoryTitle </td>
+                                                <td>
+                                                    <a href="@item.DeepLink "> Link</a>
+                                                </td>
+                                                <td>@item.Description </td>
+                                                <th>
+                                                    <img src="@SiteTools.ImageProjectthumb/@item.PictureName" />
+                                                </th>
+                                                <td>@item.StartDate.ToCustomString() </td>
+                                                <td>@item.EndDate.ToCustomString() </td>
+
+                                                <td>
+                                                    <div class="form-button-action">
+                                                        <a href="/admin/projects/update/@item.ProjectId">
+                                                            <button type="button"
+                                                                    data-bs-toggle="tooltip"
+                                                                    title=""
+                                                                    class="btn btn-link btn-primary btn-lg"
+                                                                    data-original-title="Edit Task">
+                                                                <i class="fa fa-edit"></i>
+                                                            </button>
+                                                        </a>
+                                                        <a href="/admin/projects/delete/@item.ProjectId">
+                                                            <button href="admin" type="button"
+                                                                    data-bs-toggle="tooltip"
+                                                                    title=""
+                                                                    class="btn btn-link btn-danger"
+                                                                    data-original-title="Remove">
+                                                                <i class="fa fa-times"></i>
+                                                            </button>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                                <partial name="_AdminPagination" model="@Model.GetCurrentPaging()" />
+
+                            }
+                            else
+                            {
+                                <partial name="_AdminNotFound" />
+
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

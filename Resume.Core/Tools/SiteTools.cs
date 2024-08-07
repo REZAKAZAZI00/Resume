@@ -19,5 +19,8 @@ public class SiteTools
     #region Project
 
     public static string ImageProject { get; set; } = "/img/Project/";
+    public static string ImageProjectthumb { get; set; } = "/img/Project/thumb/";
+
+
     #endregion
 }

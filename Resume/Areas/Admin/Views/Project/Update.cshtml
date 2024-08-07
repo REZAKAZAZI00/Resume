@@ -1,0 +1,125 @@
+﻿@model UpdateProjectViewModel
+@{
+    ViewData["title"] = "Create Project";
+
+}
+
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3"></h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="#">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    Dashboard
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Projects</a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Edit Project</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Create Project </div>
+                    </div>
+
+                    <form asp-action="update" method="post" enctype="multipart/form-data">
+
+                    <div class="card-body">
+                        <div class="row">
+                           
+                                <div class="col-md-6 col-lg-6">
+                                    <input type="hidden" asp-for="ProjectId" />
+                                    <input type="hidden" asp-for="PictureName" />
+                                    <div class="form-group">
+                                        <label for="email2">Title</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="email2"
+                                               asp-for="Title" />
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="largeSelect">Category</label>
+                                        <select class="form-select form-control-lg" asp-for=CategoryId asp-items="@(ViewData["category"] as SelectList)" id="largeSelect">
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email2">Description </label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="email2"
+                                               asp-for="Description" />
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email2"> DeepLink</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="email2"
+                                               asp-for="DeepLink" />
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email2">StartDate</label>
+                                        <input type="date"
+                                               class="form-control"
+                                               id="email2"
+                                               asp-for="StartDate" />
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email2">EndDate</label>
+                                        <input type="date"
+                                               class="form-control"
+                                               id="email2"
+                                               asp-for="EndDate" />
+
+                                    </div>
+                                  
+
+
+
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <img src="@SiteTools.ImageProjectthumb/@Model.PictureName"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Photo</label>
+                                        <input type="file"
+                                               class="form-control-file"
+                                               id="exampleFormControlFile1" asp-for="Image" />
+                                    </div>
+
+                                </div>
+                                
+
+                        </div>
+                    </div>
+                        <div class="card-action">
+                            <button class="btn btn-success">Submit</button>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

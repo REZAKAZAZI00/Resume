@@ -19,6 +19,9 @@ global using Resume.Web.Controllers;
 global using Resume.Core.DTOs.AboutMe;
 global using Newtonsoft.Json;
 global using Resume.Core.DTOs.Category;
+global using Resume.Core.DTOs.Project;
+global using Resume.Core.Tools;
+
 
 
 

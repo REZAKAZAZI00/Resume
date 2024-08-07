@@ -1,10 +1,11 @@
 ﻿namespace Resume.Core.DTOs.Project;
 public class UpdateProjectViewModel
 {
-    [Required]
+    [Display(Name = "Id")]
+    [Required(ErrorMessage = "Please enter {0}")]
     public int ProjectId { get; set; }
 
-    public string CategoryTitle { get; set; }
+    public string? CategoryTitle { get; set; }
 
     public int CategoryId { get; set; }
 
@@ -13,7 +14,7 @@ public class UpdateProjectViewModel
 
     public string Description { get; set; }
 
-    public IFormFile Image { get; set; }
+    public IFormFile? Image { get; set; }
     public string PictureName { get; set; }
     [Required]
     public DateOnly StartDate { get; set; }
