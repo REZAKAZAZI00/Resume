@@ -18,6 +18,7 @@ global using System.Security.Claims;
 global using Microsoft.AspNetCore.Authentication;
 global using Microsoft.AspNetCore.Authentication.Cookies;
 global using Microsoft.AspNetCore.Http;
+global using Resume.Core.DTOs.Blog;
 global using System.Security.Principal;
 global using Resume.Core.Extensions;
 global using Resume.Core.DTOs.ContactUs;

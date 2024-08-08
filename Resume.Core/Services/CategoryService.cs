@@ -166,6 +166,29 @@ public class CategoryService : ICategoryService
         }
     }
 
+    public async Task<List<CategoryDetailsViewModel>> GetCategoriesForShowHomeAsync(int pageId=1, int take=5)
+    {
+        try
+        {
+            int skip=(pageId - 1);
+           var category=await _context.Categories
+                .AsNoTracking()
+                .Select(c=> new CategoryDetailsViewModel
+                {
+                     Title=c.Title,
+                })
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+            return category;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return null;
+        }
+    }
+
     public async Task<OutPutModel<bool>> UpdateAsync(UpdateCategoryViewModel model)
     {
         try

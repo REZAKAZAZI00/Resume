@@ -1,0 +1,11 @@
+﻿@model List<CategoryDetailsViewModel>
+
+
+<ul class="gallery_filter list">
+
+    <li class="active" data-filter="*"><a href="#">All</a></li>
+    @foreach (var item in Model)
+    {
+        <li data-filter=".@item.Title"><a href="#">@item.Title</a></li>
+    }
+</ul>

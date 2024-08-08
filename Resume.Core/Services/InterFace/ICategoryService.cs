@@ -10,6 +10,6 @@ public interface ICategoryService
     Task<DeleteCategoryViewModel> GetForDeleteByIdAsync(int id);
     Task<UpdateCategoryViewModel> GetForUpdateByIdAsync(int id);
 
-    
+    Task<List<CategoryDetailsViewModel>> GetCategoriesForShowHomeAsync(int pageId=1,int take=5);
 
 }
