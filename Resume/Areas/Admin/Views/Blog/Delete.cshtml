@@ -1,0 +1,28 @@
+﻿@model DeleteBlogViewModel
+@{
+    ViewData["Title"] = "Delete Blog";
+}
+<div class="container mt-5">
+    <div class="page-inner">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-danger text-white">
+                        <h3 class="card-title">Delete Confirmation</h3>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="delete" method="post">
+                            <input type="hidden" asp-for="BlogId" />
+                            <input type="hidden" asp-for="Title" />
+                            <h4 class="text-center">Are you sure you want to delete the role "@Model.Title"?</h4>
+                            <div class="text-center mt-4">
+                                <input type="submit" value="Delete" class="btn btn-danger mx-2" />
+                                <a href="/admin/blogs" class="btn btn-info mx-2">Back</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

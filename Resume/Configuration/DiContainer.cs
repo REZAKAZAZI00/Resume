@@ -5,6 +5,7 @@ public static class DiContainer
     public static void RegisterServices(this IServiceCollection service)
     {
         #region Services
+        service.AddHttpContextAccessor();
 
         service.AddScoped<IUserService, UserService>();
         service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -17,7 +18,7 @@ public static class DiContainer
         service.AddScoped<IProjectService,ProjectService>();
         service.AddScoped<IStatisticsService, StatisticsService>();
         service.AddScoped<IAboutMeService, AboutMeService>();
-
+        service.AddScoped<IBlogService,BlogService>();
         #endregion
 
     }

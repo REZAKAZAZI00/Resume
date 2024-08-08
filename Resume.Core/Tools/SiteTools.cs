@@ -23,4 +23,10 @@ public class SiteTools
 
 
     #endregion
+
+    #region Blog
+    public static string Imageblog { get; set; } = "/img/blog/";
+    public static string ImageBlogThumb { get; set; } = "/img/blog/thumb";
+
+    #endregion
 }

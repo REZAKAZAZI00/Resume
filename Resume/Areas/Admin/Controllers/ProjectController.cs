@@ -1,5 +1,4 @@
-﻿global using Microsoft.AspNetCore.Mvc.Rendering;
-
+﻿
 namespace Resume.Web.Areas.Admin.Controllers;
 [Area("admin")]
 public class ProjectController : AdminBaseController
