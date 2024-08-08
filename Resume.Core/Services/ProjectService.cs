@@ -311,5 +311,37 @@ public class ProjectService : IProjectService
             return null;
         }
     }
+
+    public async Task<List<ProjectDetailsViewModel>> GetProjectForShowHomeAsync(int pageId = 1, int take = 6)
+    {
+        try
+        {
+            int skip=(pageId-1);
+            var project=await _context.Projects
+                .AsNoTrackingWithIdentityResolution()
+                .Include(c => c.Category)
+                .Select(p=>new  ProjectDetailsViewModel{
+                     CategoryId = p.CategoryId,
+                     CategoryTitle=p.Category.Title,
+                     Title = p.Title,
+                     DeepLink=p.DeepLink,
+                     Description=p.Description,
+                     EndDate=p.EndDate,
+                     IsDelete=p.IsDelete,
+                     PictureName=p.PictureName,
+                     StartDate=p.StartDate,
+                     ProjectId=p.Id,
+                })
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+            return project;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message,ex);
+            return null;
+        }
+    }
     #endregion
 }

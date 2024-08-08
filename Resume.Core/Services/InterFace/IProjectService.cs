@@ -14,4 +14,5 @@ public interface IProjectService
     Task<DeleteProjectViewModel> GetProjectForDeleteByIdAsync(int id);
     Task<UpdateProjectViewModel> GetProjectForUpdateByIdAsync(int id);
 
+    Task<List<ProjectDetailsViewModel>> GetProjectForShowHomeAsync(int pageId=1,int take=6);
 }
