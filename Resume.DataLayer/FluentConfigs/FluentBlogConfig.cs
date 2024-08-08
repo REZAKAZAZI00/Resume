@@ -23,7 +23,8 @@ public class FluentBlogConfig : IEntityTypeConfiguration<Blog>
 
         builder.HasMany(c => c.Comments)
                .WithOne(c => c.Blog)
-               .HasForeignKey(c => c.BlogId);
+               .HasForeignKey(c => c.BlogId)
+               .OnDelete(DeleteBehavior.Cascade);
 
         #endregion
     }
