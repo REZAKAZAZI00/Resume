@@ -7,6 +7,7 @@ public class Category:BaseEntity<int>
     public  string Title { get; set; }
     public string Description { get; set; }
 
+    public string PictureName { get; set; }
     public bool IsDelete { get; set; }
 
 

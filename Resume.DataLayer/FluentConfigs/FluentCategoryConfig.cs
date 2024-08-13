@@ -7,5 +7,8 @@ public class FluentCategoryConfig : IEntityTypeConfiguration<Category>
         builder.Property(c => c.Title)
                .HasMaxLength(200)
                .IsRequired();
+
+        builder.Property(c => c.PictureName)
+            .HasMaxLength(200);
     }
 }
