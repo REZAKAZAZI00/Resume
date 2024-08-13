@@ -35,5 +35,8 @@ global using Resume.DataLayer.Entities.Skills;
 global using Resume.DataLayer.Entities.Education;
 global using Resume.DataLayer.Entities.WorkExperiences;
 global using Resume.DataLayer.Entities.Blog;
+global using Resume.Core.DTOs.Comment;
+
+
 
 

@@ -6,4 +6,6 @@ public class CategoryDetailsViewModel
     public string Title { get; set; }
 
     public string Description { get; set; }
+
+    public  string PictureName { get; set; }
 }

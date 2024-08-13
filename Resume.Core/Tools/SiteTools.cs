@@ -26,7 +26,13 @@ public class SiteTools
 
     #region Blog
     public static string Imageblog { get; set; } = "/img/blog/";
-    public static string ImageBlogThumb { get; set; } = "/img/blog/thumb";
+    public static string ImageBlogThumb { get; set; } = "/img/blog/thumb/";
+
+    #endregion
+
+    #region category
+    public static string ImageCategories { get; set; } = "/img/categories/";
+    public static string ImageCategoriesThumb { get; set; } = "/img/categories/thumb/";
 
     #endregion
 }

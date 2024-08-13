@@ -29,25 +29,29 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Create category </div>
+                        <div class="card-title">Create Category </div>
                     </div>
 
+                    <form asp-action="update" method="post" enctype="multipart/form-data">
 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8 col-lg-6">
-                                <form asp-action="update" method="post">
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-md-6 col-lg-6">
                                     <input type="hidden" asp-for="CategoryId" />
+                                    <input type="hidden" asp-for="PictureName" />
                                     <div class="form-group">
-                                        <label for="email2"> Title</label>
+                                        <label for="email2">Title</label>
                                         <input type="text"
                                                class="form-control"
                                                id="email2"
                                                asp-for="Title" />
 
                                     </div>
+                                  
                                     <div class="form-group">
                                         <label for="email2">Description </label>
                                         <input type="text"
@@ -56,20 +60,29 @@
                                                asp-for="Description" />
 
                                     </div>
-
-
-                                    <div class="card-action">
-                                        <button class="btn btn-success">Submit</button>
-
+                                   
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <img src="@SiteTools.ImageCategoriesThumb@Model.PictureName" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Photo</label>
+                                        <input type="file"
+                                               class="form-control-file"
+                                               id="exampleFormControlFile1" asp-for="Image" />
                                     </div>
 
-                                </form>
+                                </div>
 
 
                             </div>
+                        </div>
+                        <div class="card-action">
+                            <button class="btn btn-success">Submit</button>
 
                         </div>
-                    </div>
+                    </form>
 
                 </div>
             </div>

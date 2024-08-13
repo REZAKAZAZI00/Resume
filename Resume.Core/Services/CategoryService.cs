@@ -1,4 +1,6 @@
-﻿namespace Resume.Core.Services;
+﻿using SixLabors.ImageSharp;
+
+namespace Resume.Core.Services;
 public class CategoryService : ICategoryService
 {
     #region Fields
@@ -25,10 +27,36 @@ public class CategoryService : ICategoryService
     {
         try
         {
+            string imageName = "Default.png";
+            if (model.Image is not null)
+            {
+                if (model.Image.IsImage())
+                {
+                    imageName = NameGenerator.GenerateNameForImage(15) + Path.GetExtension(model.Image.FileName);
+                    model.Image.AddImageToServer(fileName: imageName,
+                        SiteTools.ImageCategories,
+                        thumbPath: SiteTools.ImageCategoriesThumb,
+                        width: 150, height: 100);
+
+                }
+                else
+                {
+
+                    return new OutPutModel<bool>
+                    {
+                        StatusCode = 400,
+                        Result = false,
+                        Message = "The uploaded file is not an image. Please upload a file with one of : .jpg, .jpeg, .png"
+
+                    };
+                }
+            }
             var newCategory = new Category
             {
                 Description = model.Description,
                 IsDelete = false,
+                CreateDate = DateTime.Now,  
+                 PictureName = imageName,
                 Title = model.Title,
             };
 
@@ -108,6 +136,7 @@ public class CategoryService : ICategoryService
                 {
                     Title = c.Title,
                     CategoryId = c.Id,
+                    PictureName = c.PictureName,
                     Description = c.Description,
                 }));
 
@@ -154,6 +183,7 @@ public class CategoryService : ICategoryService
                     CategoryId = c.Id,
                     Description = c.Description,
                     Title = c.Title,
+                    PictureName = c.PictureName,
                 })
                 .SingleOrDefaultAsync();
 
@@ -176,6 +206,7 @@ public class CategoryService : ICategoryService
                 .Select(c=> new CategoryDetailsViewModel
                 {
                      Title=c.Title,
+                     PictureName=c.PictureName,
                 })
                 .Skip(skip)
                 .Take(take)
@@ -203,9 +234,36 @@ public class CategoryService : ICategoryService
                     Message = "Not Found Category."
                 };
 
+            if (model.Image is not null)
+            {
+                if (model.Image.IsImage())
+                {
+                    if (category.PictureName != "Default.png")
+                    {
+                       category.PictureName.DeleteImage(SiteTools.ImageCategories, SiteTools.ImageCategoriesThumb);
+                    }
+                    category.PictureName = NameGenerator.GenerateNameForImage(15) + Path.GetExtension(model.Image.FileName);
+                    model.Image.AddImageToServer(fileName: category.PictureName,
+                                            SiteTools.ImageCategories,
+                                            thumbPath: SiteTools.ImageCategoriesThumb,
+                                            width: 150, height: 100);
+                }
+                else
+                {
+
+                    return new OutPutModel<bool>
+                    {
+                        StatusCode = 400,
+                        Result = false,
+                        Message = "The uploaded file is not an image. Please upload a file with one of : .jpg, .jpeg, .png"
+
+                    };
+                }
+            }
+
             category.Description = model.Description;
             category.Title = model.Title;
-
+          
             _context.Categories.Update(category);
             await _context.SaveChangesAsync();
             return new OutPutModel<bool>

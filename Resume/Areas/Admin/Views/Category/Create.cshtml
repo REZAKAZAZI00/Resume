@@ -37,41 +37,50 @@
                     </div>
 
 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8 col-lg-6">
-                                <form asp-action="create" method="post">
+                    <form asp-action="create" method="post" enctype="multipart/form-data">
 
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <label for="email2"> Title</label>
+                                        <label for="email2">Title</label>
                                         <input type="text"
                                                class="form-control"
                                                id="email2"
                                                asp-for="Title" />
 
                                     </div>
+
                                     <div class="form-group">
                                         <label for="email2">Description </label>
                                         <input type="text"
                                                class="form-control"
                                                id="email2"
                                                asp-for="Description" />
-                                       
-                                    </div>
-
-
-                                    <div class="card-action">
-                                        <button class="btn btn-success">Submit</button>
 
                                     </div>
 
-                                </form>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Photo</label>
+                                        <input type="file"
+                                               class="form-control-file"
+                                               id="exampleFormControlFile1" asp-for="Image" />
+                                    </div>
+
+                                </div>
 
 
                             </div>
+                        </div>
+                        <div class="card-action">
+                            <button class="btn btn-success">Submit</button>
 
                         </div>
-                    </div>
+                    </form>
 
                 </div>
             </div>

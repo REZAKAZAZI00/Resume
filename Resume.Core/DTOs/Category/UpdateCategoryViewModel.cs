@@ -14,5 +14,7 @@ public class UpdateCategoryViewModel
     [Display(Name = "Description")]
     [MaxLength(300, ErrorMessage = "{0} cannot be more than {1} characters.")]
     public string Description { get; set; }
+    public IFormFile? Image { get; set; }
 
+    public string PictureName { get; set; }
 }
