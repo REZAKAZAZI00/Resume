@@ -9,11 +9,15 @@ public class FluentCategoryBlogConfig : IEntityTypeConfiguration<CategoryBlog>
             .HasMaxLength(150)
             .IsRequired();
 
+        builder.Property(c => c.PictureName)
+               .HasMaxLength(200);
         #region Relations
 
         builder.HasMany(b => b.Blogs)
                .WithOne(c => c.CategoryBlog)
                .HasForeignKey(b => b.CategoryId);
+
+        
 
 
         #endregion
