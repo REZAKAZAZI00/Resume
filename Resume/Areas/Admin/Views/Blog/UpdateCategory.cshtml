@@ -42,6 +42,8 @@
 
                                 <div class="col-md-6 col-lg-6">
                                     <input type="hidden" asp-for="CategeoryId" />
+                                    <input type="hidden" asp-for="PictureName" />
+
                                     <div class="form-group">
                                         <label for="email2">Title</label>
                                         <input type="text"
@@ -62,8 +64,13 @@
                                   
                                 </div>
                                 <div class="col-md-6 col-lg-4">
-                                    
 
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Photo</label>
+                                        <input type="file"
+                                               class="form-control-file"
+                                               id="exampleFormControlFile1" asp-for="Image" />
+                                    </div>
                                 </div>
 
 

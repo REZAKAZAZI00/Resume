@@ -16,4 +16,6 @@ public class BlogDetailsViewModel
 
     public string Tags { get; set; }
     public int ViewCount { get; set; }
+
+    public DateTime? CreateDate { get; set; }
 }

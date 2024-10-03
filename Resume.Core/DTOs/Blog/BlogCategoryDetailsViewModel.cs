@@ -14,4 +14,6 @@ public class BlogCategoryDetailsViewModel
     [MaxLength(150, ErrorMessage = "{0} cannot be more than {1} characters.")]
     public string Description { get; set; }
 
+    public string PictureName { get; set; }
+
 }

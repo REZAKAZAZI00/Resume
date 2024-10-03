@@ -1,4 +1,5 @@
-﻿
+﻿using Resume.DataLayer.Entities.Blog;
+
 namespace Resume.Core.Services;
 public class BlogService : IBlogService
 {
@@ -100,13 +101,35 @@ public class BlogService : IBlogService
     {
         try
         {
-            
+            string imageName = "Default.png";
+            if (model.Image is not null)
+            {
+                if (model.Image.IsImage())
+                {
+                    imageName = NameGenerator.GenerateNameForImage(15) + Path.GetExtension(model.Image.FileName);
+                    model.Image.AddImageToServer(fileName: imageName,
+                        SiteTools.Imageblog ,
+                        thumbPath: SiteTools.ImageBlogThumb,
+                        width: 150, height: 100);
+                }
+                else
+                {
+                    return new OutPutModel<bool>
+                    {
+                        StatusCode = 400,
+                        Result = false,
+                        Message = "The uploaded file is not an image. Please upload a file with one of : .jpg, .jpeg, .png"
+
+                    };
+                }
+            }
             var newCate = new CategoryBlog()
             {
                 CreateDate = DateTime.Now,
                 IsDelete = false,
                 Description = model.Description,
                 Title = model.Title,
+                PictureName=imageName,
             };
 
             _context.CategoryBlogs.Add(newCate);
@@ -219,6 +242,7 @@ public class BlogService : IBlogService
         {
 
             var query = _context.Blogs.Include(b => b.CategoryBlog)
+                .Include(u => u.User)
                 .AsNoTrackingWithIdentityResolution()
                 .AsQueryable();
 
@@ -235,6 +259,8 @@ public class BlogService : IBlogService
                     Title = b.Title,
                     PictureName = b.PictureName,
                     Tags = b.Tags,
+                    UserName = b.User.FirstName + b.User.LastName,
+                    CreateDate = b.CreateDate,
                     Description = b.Description,
                     ViewCount = b.ViewCount,
                     CategoryTitle = b.CategoryBlog.Title,
@@ -267,10 +293,10 @@ public class BlogService : IBlogService
             await model.Paging(query
                 .Select(b => new BlogCategoryDetailsViewModel
                 {
-                     CategoryId = b.Id,
+                    CategoryId = b.Id,
                     Title = b.Title,
                     Description = b.Description,
-                
+
                 }));
 
 
@@ -283,17 +309,108 @@ public class BlogService : IBlogService
         }
     }
 
+    public async Task<BlogViewModel> GetBlogByIdAsync(int id)
+    {
+        try
+        {
+            var blog = await _context.Blogs
+                                   .AsNoTrackingWithIdentityResolution()
+                                   .Where(b => b.Id == id)
+                                   .Include(c => c.CategoryBlog)
+                                   .Include(c => c.Comments)
+                                   .Include(u => u.User)
+                                   .Select(b => new BlogViewModel
+                                   {
+                                       BlogId = b.Id,
+                                       Title = b.Title,
+                                       CreateDate = b.CreateDate,
+                                       ViewCount = b.ViewCount,
+                                       Description = b.Description,
+                                       Tags = b.Tags,
+                                       PictureName = b.PictureName,
+                                       UserName = b.User.FirstName + b.User.LastName,
+                                       CategoryTitle = b.CategoryBlog.Title,
+                                       Comments = b.Comments.Select(c => new CommentViewModel
+                                       {
+                                           CommentId = c.Id,
+                                           CommentText = c.Massage,
+                                           Topic = c.Topic,
+                                           CreateDate = c.CreateDate,
+                                       }).ToList()
+                                   }).SingleOrDefaultAsync();
+
+            return blog;
+        }
+        catch (Exception ex)
+        {
+
+            _logger.LogError(ex.Message, ex);
+            return null;
+        }
+    }
+
+    public async Task<List<BlogCategoriesViewModel>> GetBlogCategoriesAsync()
+    {
+        try
+        {
+
+            var categories = await _context.CategoryBlogs
+                                         .AsNoTrackingWithIdentityResolution()
+                                         .Include(b => b.Blogs)
+                                         .Select(c => new BlogCategoriesViewModel
+                                         {
+                                             Title = c.Title,
+                                             CategoryId = c.Id,
+                                             BlogCount = c.Blogs.Count(b => b.CategoryId == c.Id),
+                                         })
+                                         .ToListAsync();
+            return categories;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return new List<BlogCategoriesViewModel>();
+
+        }
+    }
+
+    public async Task<List<BlogCategoriesViewModel>> GetBlogCategoriesAsync(int pageId = 1, int take = 3)
+    {
+        try
+        {
+            int skip = (pageId - 1);
+            var categories = await _context.CategoryBlogs
+                .AsNoTrackingWithIdentityResolution()
+                .Select(c => new BlogCategoriesViewModel()
+                {
+                    Description = c.Description,
+                    PictureName = c.PictureName,
+                    Title = c.Title,
+                    CategoryId = c.Id,
+                })
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+            return categories;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return null;
+        }
+    }
+
     public async Task<DeleteBlogCategoryViewModel> GetBlogCategoryForDeleteAsync(int id)
     {
         try
         {
-            
+
             var cate = await _context.CategoryBlogs
                .Where(c => c.Id == id)
                .Select(c => new DeleteBlogCategoryViewModel
                {
-                    CategoryId = c.Id,
-                    Title=c.Title,
+                   CategoryId = c.Id,
+                   Title = c.Title,
                })
                .SingleOrDefaultAsync();
             return cate;
@@ -309,13 +426,13 @@ public class BlogService : IBlogService
     {
         try
         {
-            var cate=await _context.CategoryBlogs
-                .Where(c=>c .Id == id)
-                .Select(c=> new UpdateBlogCategoryViewModel
+            var cate = await _context.CategoryBlogs
+                .Where(c => c.Id == id)
+                .Select(c => new UpdateBlogCategoryViewModel
                 {
-                     CategeoryId = c.Id,
-                     Description = c.Description,
-                     Title = c.Title,
+                    CategeoryId = c.Id,
+                    Description = c.Description,
+                    Title = c.Title,
                 })
                 .SingleOrDefaultAsync();
             return cate;
@@ -380,13 +497,42 @@ public class BlogService : IBlogService
     {
         try
         {
-            var blog=await _context.CategoryBlogs
-                .Select(b=> new SelectListItem
+            var blog = await _context.CategoryBlogs
+                .Select(b => new SelectListItem
                 {
-                     Text=b.Title,
-                     Value=b.Id.ToString()
+                    Text = b.Title,
+                    Value = b.Id.ToString()
                 }).ToListAsync();
             return blog;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return null;
+        }
+    }
+
+    public async Task<List<BlogViewModel>> GetPopularBlogsAsync(int pageId = 1, int take = 6)
+    {
+        try
+        {
+            int skip = (pageId - 1);
+            var blogs = await _context.Blogs
+                                    .AsNoTracking()
+                                    .OrderByDescending(b => b.ViewCount)
+                                    .Select(b => new BlogViewModel
+                                    {
+                                        Title = b.Title,
+                                        CreateDate = b.CreateDate,
+                                        BlogId = b.Id,
+                                        PictureName = b.PictureName,
+                                        Tags = b.Tags,
+                                    })
+                                    .Skip(skip)
+                                    .Take(take)
+                                    .ToListAsync();
+
+            return blogs;
         }
         catch (Exception ex)
         {
@@ -439,7 +585,7 @@ public class BlogService : IBlogService
             blog.Description = model.Description;
             blog.Tags = model.Tags;
             blog.CategoryId = model.CategoryId;
-            
+
 
             _context.Blogs.Update(blog);
             await _context.SaveChangesAsync();
@@ -476,11 +622,37 @@ public class BlogService : IBlogService
                     Message = "Not Found Blog."
                 };
 
+            if (model.Image is not null)
+            {
+                if (model.Image.IsImage())
+                {
+                    if (cate.PictureName != "Default.png")
+                    {
+                        cate.PictureName.DeleteImage(SiteTools.Imageblog, SiteTools.ImageBlogThumb);
+                    }
+                    cate.PictureName = NameGenerator.GenerateNameForImage(15) + Path.GetExtension(model.Image.FileName);
+                    model.Image.AddImageToServer(fileName: cate.PictureName,
+                                            SiteTools.Imageblog,
+                                            thumbPath: SiteTools.ImageBlogThumb,
+                                            width: 150, height: 100);
+                }
+                else
+                {
+
+                    return new OutPutModel<bool>
+                    {
+                        StatusCode = 400,
+                        Result = false,
+                        Message = "The uploaded file is not an image. Please upload a file with one of : .jpg, .jpeg, .png"
+
+                    };
+                }
+            }
 
             cate.Title = model.Title;
             cate.Description = model.Description;
-            
-           
+
+
 
             _context.CategoryBlogs.Update(cate);
             await _context.SaveChangesAsync();
