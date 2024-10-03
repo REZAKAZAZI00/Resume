@@ -1,0 +1,140 @@
+﻿@{
+	var userInfo = ViewData["Data"] as UserInfoViewModel;
+} 
+@inject IStatisticsService _StatisticsService;
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+	<div class="box_1620">
+		<div class="banner_inner d-flex align-items-center">
+			<div class="container">
+				<div class="banner_content text-center">
+					<h2>About Me</h2>
+					<div class="page_link">
+						<a href="index">Home</a>
+						<a href="about">About Me</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Home Banner Area =================-->
+<!--================Home Banner Area =================-->
+<section class="profile_area">
+	<div class="container">
+		<div class="profile_inner p_120">
+			<div class="row">
+				<div class="col-lg-5">
+					<img class="img-fluid" src="img/UserProfile/@userInfo.PictureName" width="500px" alt="">
+				</div>
+				<div class="col-lg-7">
+					<div class="personal_text">
+						<h6>Hello Everybody, i am</h6>
+						<h3>@userInfo.FirstName @userInfo.LastName</h3>
+						<h4> @userInfo.Position </h4>
+						<p> @Html.Raw(userInfo.Bio)</p>
+						<ul class="list basic_info">
+							<li><a href="#"><i class="lnr lnr-calendar-full"></i> @userInfo.BirthDate.ToCustomString()</a></li>
+							<li><a href="#"><i class="lnr lnr-phone-handset"></i> @userInfo.Phone </a></li>
+							<li><a href="#"><i class="lnr lnr-envelope"></i> @userInfo.Email</a></li>
+							<li><a href="#"><i class="lnr lnr-home"></i>@userInfo.Location</a></li>
+						</ul>
+						<ul class="list personal_social">
+							<li><a href="https://github.com/REZAKAZAZI00"><i class="fa fa-github"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="https://www.linkedin.com/in/rezakazazi2002"><i class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Home Banner Area =================-->
+<!--================Welcome Area =================-->
+<section class="welcome_area p_120">
+	<div class="container">
+		<div class="row welcome_inner">
+			<div class="col-lg-6">
+				<div class="welcome_text">
+					<h4>About Myself</h4>
+					<p>I am a highly motivated, results-driven, and detail-oriented software engineer with a passion for delivering innovative and cutting-edge software solutions. I am constantly seeking to learn and grow and always looking for new and exciting challenges to take on.</p>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="wel_item">
+								<i class="lnr lnr-database"></i>
+								<h4>2</h4>
+								<p>Total Donation</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="wel_item">
+								<i class="lnr lnr-book"></i>
+								<h4>@await _StatisticsService.GetToTotalProjectsAsync()</h4>
+								<p>Total Projects</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="wel_item">
+								<i class="lnr lnr-users"></i>
+								<h4>3</h4>
+								<p>Total Volunteers</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				@await Component.InvokeAsync("Skills")
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Welcome Area =================-->
+<!--================Testimonials Area =================-->
+<section class="testimonials_area p_120">
+	<div class="container">
+		<div class="main_title">
+			<h2>Testimonials</h2>
+			<p>If you are looking at blank cassettes on the web, you may be very confused at the difference in price. You may see some for as low as $.17 each.</p>
+		</div>
+		<div class="testi_inner">
+			<div class="testi_slider owl-carousel">
+				<div class="item">
+					<div class="testi_item">
+						<p>As conscious traveling Paup ers we must always be oncerned about our dear Mother Earth. If you think about it, you travel across her face</p>
+						<h4>Fanny Spencer</h4>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star-half-o"></i></a>
+					</div>
+				</div>
+				<div class="item">
+					<div class="testi_item">
+						<p>As conscious traveling Paup ers we must always be oncerned about our dear Mother Earth. If you think about it, you travel across her face</p>
+						<h4>Fanny Spencer</h4>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star-half-o"></i></a>
+					</div>
+				</div>
+				<div class="item">
+					<div class="testi_item">
+						<p>As conscious traveling Paup ers we must always be oncerned about our dear Mother Earth. If you think about it, you travel across her face</p>
+						<h4>Fanny Spencer</h4>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star"></i></a>
+						<a href="#"><i class="fa fa-star-half-o"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Testimonials Area =================-->
