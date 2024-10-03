@@ -207,7 +207,15 @@ public class UserService : IUserService
             string hashPassword = PasswordHelper.EncodePasswordSHA256(model.Password);
 
             var user = await GetUserByEmailAsync(email);
-            
+
+            if (user is null)
+                return new OutPutModel<bool>
+                {
+                    StatusCode = 404,
+                    Message = "Not Found User.",
+                    Result = false
+                };
+
             if (user.Password != hashPassword)
                 return new OutPutModel<bool>
                 {
@@ -217,14 +225,7 @@ public class UserService : IUserService
                 };
 
 
-            if (user is null)
-                return new OutPutModel<bool>
-                {
-                    StatusCode = 404,
-                    Message = "کاربری پیدا نشد",
-                    Result = false
-                };
-
+           
             _tokenHelperService.GenerateToken(user);
             return new OutPutModel<bool>
             {
