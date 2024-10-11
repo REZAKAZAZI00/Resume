@@ -1,0 +1,11 @@
+﻿@model List<BlogViewModel> 
+@foreach (var item in Model)
+{
+    <div class="media post_item">
+        <img src="/img/blog/thumb/@item.PictureName" alt="@item.Tags">
+        <div class="media-body">
+            <a href="/blog/@item.BlogId"><h3>@item.Title</h3></a>
+            <p>@item.CreateDate.AsTimeAgo()</p>
+        </div>
+    </div>
+}

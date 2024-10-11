@@ -23,6 +23,7 @@ global using Resume.Core.DTOs.Category;
 global using Resume.Core.DTOs.Project;
 global using Resume.Core.Tools;
 global using Microsoft.AspNetCore.Mvc.Rendering;
+global using Resume.Core.DTOs.Comment;
 
 
 

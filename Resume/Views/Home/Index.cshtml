@@ -2,6 +2,7 @@
     var userInfo = ViewData["Data"] as UserInfoViewModel;
 
 }
+@inject IStatisticsService _StatisticsServies;
 <!--================Home Banner Area =================-->
 <section class="home_banner_area">
     <div class="container box_1620">
@@ -43,26 +44,26 @@
             <div class="col-lg-6">
                 <div class="welcome_text">
                     <h4>About Myself</h4>
-                    <p>inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.</p>
+                    <p>I am a highly motivated, results-driven, and detail-oriented software engineer with a passion for delivering innovative and cutting-edge software solutions. I am constantly seeking to learn and grow and always looking for new and exciting challenges to take on.</p>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="wel_item">
                                 <i class="lnr lnr-database"></i>
-                                <h4>$2.5M</h4>
+                                <h4>2</h4>
                                 <p>Total Donation</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="wel_item">
                                 <i class="lnr lnr-book"></i>
-                                <h4>1465</h4>
+                                <h4>@await _StatisticsServies.GetToTotalProjectsAsync()</h4>
                                 <p>Total Projects</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="wel_item">
                                 <i class="lnr lnr-users"></i>
-                                <h4>3965</h4>
+                                <h4>3</h4>
                                 <p>Total Volunteers</p>
                             </div>
                         </div>
@@ -102,7 +103,7 @@
 </section>
 <!--================End My Tabs Area =================-->
 <!--================Feature Area =================-->
-<section class="feature_area p_120">
+@* <section class="feature_area p_120">
     <div class="container">
         <div class="main_title">
             <h2>offerings to my clients</h2>
@@ -133,7 +134,7 @@
         </div>
     </div>
 </section>
-<!--================End Feature Area =================-->
+ *@<!--================End Feature Area =================-->
 <!--================Home Gallery Area =================-->
 <section class="home_gallery_area p_120">
     <div class="container">
@@ -158,8 +159,11 @@
     </div>
 </section>
 <!--================End Home Gallery Area =================-->
+
+
+
 <!--================Testimonials Area =================-->
-<section class="testimonials_area p_120">
+@* <section class="testimonials_area p_120">
     <div class="container">
         <div class="main_title">
             <h2>Testimonials</h2>
@@ -204,4 +208,4 @@
         </div>
     </div>
 </section>
-<!--================End Testimonials Area =================-->
+ *@<!--================End Testimonials Area =================-->

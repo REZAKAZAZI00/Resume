@@ -9,10 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\img\blog\NewFolder\**" />
-    <Content Remove="wwwroot\img\blog\NewFolder\**" />
-    <EmbeddedResource Remove="wwwroot\img\blog\NewFolder\**" />
-    <None Remove="wwwroot\img\blog\NewFolder\**" />
+    <Compile Remove="wwwroot\img\blog\thump\**" />
+    <Content Remove="wwwroot\img\blog\thump\**" />
+    <EmbeddedResource Remove="wwwroot\img\blog\thump\**" />
+    <None Remove="wwwroot\img\blog\thump\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\blog\" />
+    <Folder Include="wwwroot\img\categories\" />
     <Folder Include="wwwroot\img\Project\NewFolder\" />
   </ItemGroup>
 

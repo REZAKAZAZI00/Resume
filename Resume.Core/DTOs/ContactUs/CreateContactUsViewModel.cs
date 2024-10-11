@@ -22,10 +22,6 @@ public class CreateContactUsViewModel
     [MaxLength(150, ErrorMessage = "{0} cannot be more than {1} characters.")]
     public string FirstName { get; set; }
 
-    [Display(Name = "Last Name")]
-    [Required(ErrorMessage = "Please enter {0}")]
-    [MaxLength(150, ErrorMessage = "{0} cannot be more than {1} characters.")]
-    public string LastName { get; set; }
 
     [Display(Name = "Email")]
     [Required(ErrorMessage = "Please enter {0}")]

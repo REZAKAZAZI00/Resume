@@ -6,7 +6,7 @@
             <span></span>
             <div class="media">
                 <div class="d-flex">
-                    <p>@education.StartDate.ToCustomString() to @(education.EndDate != null ? education.EndDate.ToCustomString() : "present")</p>
+                    <p>@education.StartDate.ToCustomString() to @(education.EndDate.ToString() != "1/1/0001" ? education.EndDate.ToCustomString() : "present")</p>
                 </div>
                 <div class="media-body">
                     <h4>@education.InstitutionName</h4>

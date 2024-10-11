@@ -26,7 +26,7 @@ public class EducationService : IEducationService
             var newEducation = new Education()
             {
                 CreateDate = DateTime.Now,
-                EndDate = model.EndDate,
+                EndDate = model?.EndDate,
                 StartDate = model.StartDate,
                 Description = model.Description,
                 Degree = model.Degree,
@@ -182,7 +182,9 @@ public class EducationService : IEducationService
                 FieldOfStudy = e.FieldOfStudy,
                 InstitutionName = e.InstitutionName,
                 StartDate = e.StartDate,
-            }).ToListAsync();
+            })
+            .OrderByDescending(x => x.StartDate)
+            .ToListAsync();
 
         return eductions;
     }
@@ -203,7 +205,7 @@ public class EducationService : IEducationService
 
 
             existingEducation.StartDate = model.StartDate;
-            existingEducation.EndDate = model.EndDate;
+            existingEducation.EndDate = model?.EndDate;
             existingEducation.Description = model.Description;
             existingEducation.Degree = model.Degree;
             existingEducation.FieldOfStudy = model.FieldOfStudy;

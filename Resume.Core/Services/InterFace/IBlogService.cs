@@ -10,6 +10,9 @@ public interface IBlogService
     Task<UpdateBlogViewModel> GetBlogForUpdateAsync(int  id);
     Task<DeleteBlogViewModel> GetBlogForDeleteAsync(int  id);
 
+    Task<BlogViewModel> GetBlogByIdAsync(int id);
+    Task<List<BlogViewModel>> GetPopularBlogsAsync(int pageId=1,int take=6);
+
     #region BlogCategory
     Task<FilterBlogCategoryViewModel> FilterAsync(FilterBlogCategoryViewModel model);
     Task<OutPutModel<bool>> CreateBlogCategoryAsync(CreateBlogCategoryViewModel model);
@@ -18,6 +21,9 @@ public interface IBlogService
 
     Task<UpdateBlogCategoryViewModel> GetBlogCategoryForUpdateAsync(int id);
     Task<DeleteBlogCategoryViewModel> GetBlogCategoryForDeleteAsync(int id);
+
+    Task<List<BlogCategoriesViewModel>> GetBlogCategoriesAsync();
+    Task<List<BlogCategoriesViewModel>> GetBlogCategoriesAsync(int pageId = 1, int take =3);
     #endregion
 
 }

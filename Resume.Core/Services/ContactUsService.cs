@@ -27,7 +27,7 @@ public class ContactUsService : IContactUsService
             var newContactUs = new ContactUs()
             {
                 CreateDate = DateTime.Now,
-                LastName = model.LastName,
+                LastName = model.FirstName,
                 Description = model.Description,
                 Email = FixedText.FexedEmail(model.Email),
                 Answer = null,
@@ -41,7 +41,7 @@ public class ContactUsService : IContactUsService
             return new OutPutModel<bool>
             {
                 StatusCode = 200,
-                Message = "",
+                Message = "Send SuccessFully.",
                 Result = true,
             };
         }
@@ -208,8 +208,8 @@ public class ContactUsService : IContactUsService
             {
                 Result = true,
                 StatusCode = 200,
-                Message = ""
-            };
+                Message = "Send SuccessFully."
+			};
         }
         catch (Exception ex)
         {

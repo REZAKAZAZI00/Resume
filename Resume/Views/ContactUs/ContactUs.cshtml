@@ -34,7 +34,7 @@
     @if (Message is not null && Message.StatusCode==200)
     {
         <div class="alert alert-success">
-            <p class="help-block"> با موفقیت انجام شد</p>
+            <p class="help-block">  اSuccessfully  </p>
         </div>
     }
 
@@ -53,7 +53,7 @@
                 </div>
                 <div class="info_item">
                     <i class="lnr lnr-envelope"></i>
-                    <h6><a href="#">rezakazazy8@yahoo.com</a></h6>
+                    <h6><a href="#">rezakazazi02@gmail.com</a></h6>
                     <p>Send us your query anytime!</p>
                 </div>
             </div>
@@ -62,13 +62,10 @@
             <form class="row contact_form" asp-route="/contact-us" method="post" id="contactForm" novalidate="novalidate">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" asp-for="FirstName"  placeholder="Enter your first name">
+                        <input type="text" class="form-control" id="name" asp-for="FirstName"  placeholder="Enter your name">
                         <span asp-validation-for="FirstName"></span>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="name" asp-for="LastName"  placeholder="Enter your last name">
-                        <span asp-validation-for="LastName"></span>
-                    </div>
+                    
                     <div class="form-group">
                         <input type="text" class="form-control"  asp-for="PhoneNumber"  placeholder="Enter your phone number">
                         <span asp-validation-for="PhoneNumber"></span>
